@@ -5,11 +5,21 @@ import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
-import android.view.View;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.ProgressBar;
+import android.widget.Toast;
 
 public class Main extends AppCompatActivity {
+
+    private static final int PROGRESS = 0x1;
+
+    private ProgressBar mProgress;
+    int level = 1;
+    int max_exp = 100;
+
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -18,14 +28,9 @@ public class Main extends AppCompatActivity {
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
-        fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
-            }
-        });
+        mProgress = (ProgressBar) findViewById(R.id.exp_bar);
+
+
     }
 
     @Override
@@ -48,5 +53,23 @@ public class Main extends AppCompatActivity {
         }
 
         return super.onOptionsItemSelected(item);
+    }
+
+    public void GainExp(View view)
+    {
+        mProgress.incrementProgressBy(5);
+        if(mProgress.getProgress() >= mProgress.getMax())
+        {
+            level = level + 1;
+            mProgress.setMax(mProgress.getMax() + 10);
+            mProgress.setProgress(0);
+
+            Toast toasty = Toast.makeText(this, "Level Up! You are now level " + level + ".", Toast.LENGTH_LONG);
+            toasty.show();
+
+        }
+
+        Snackbar snackbar = Snackbar.make(view, "You got 1 EXP!", Snackbar.LENGTH_LONG);
+        snackbar.setAction("Action", null).show();
     }
 }
