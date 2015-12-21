@@ -65,4 +65,38 @@
         android:padding="5dp"
         android:layout_alignTop="@+id/txtLatitudeS"
         android:layout_toEndOf="@+id/txtLatitudeS" />
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Get Steps"
+        android:id="@+id/btnSteps"
+        android:layout_alignTop="@+id/btnLocation"
+        android:layout_alignParentEnd="true"
+        android:onClick="btnSteps_Click" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceSmall"
+        android:text="Steps:"
+        android:id="@+id/txtStepsS"
+        android:textColor="#010101"
+        android:textSize="18sp"
+        android:padding="5dp"
+        android:singleLine="true"
+        android:layout_below="@+id/txtLatitudeS"
+        android:layout_alignEnd="@+id/txtLongitudeS" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceSmall"
+        android:text="N/A"
+        android:id="@+id/txtSteps"
+        android:textColor="#010101"
+        android:textSize="18sp"
+        android:padding="5dp"
+        android:layout_alignTop="@+id/txtStepsS"
+        android:layout_toEndOf="@+id/txtStepsS" />
 </RelativeLayout>

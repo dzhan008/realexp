@@ -2,6 +2,10 @@ package realexp.realexp;
 
 import android.content.Context;
 import android.content.pm.PackageManager;
+import android.hardware.Sensor;
+import android.hardware.SensorEvent;
+import android.hardware.SensorEventListener;
+import android.hardware.SensorManager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -16,6 +20,7 @@ import java.util.jar.Manifest;
 public class Location extends AppCompatActivity {
 
     android.location.LocationManager locationM;
+    float steps;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -23,6 +28,7 @@ public class Location extends AppCompatActivity {
         setContentView(R.layout.activity_location);
 
         locationM = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
+        steps = 0;
 
     }
 
@@ -63,4 +69,29 @@ public class Location extends AppCompatActivity {
             Log.e("PERMISSION", "ACCESS_FINE_LOCATION");
         }
     }
+
+    public void btnSteps_Click(View v) {
+        final TextView txtsteps = (TextView) findViewById(R.id.txtSteps);
+
+        SensorManager sensorM = (SensorManager) getSystemService(Context.SENSOR_SERVICE);
+        Sensor sensorSteps = sensorM.getDefaultSensor(Sensor.TYPE_STEP_COUNTER);
+        sensorM.registerListener(new SensorEventListener() {
+            @Override
+            public void onSensorChanged(SensorEvent event) {
+                if (event.values.length > 0) {
+                    steps = event.values[0];
+                }
+                txtsteps.setText(Float.toString(steps));
+            }
+
+            @Override
+            public void onAccuracyChanged(Sensor sensor, int accuracy) {
+
+            }
+
+        }, sensorSteps, SensorManager.SENSOR_DELAY_FASTEST);
+
+    }
+
+
 }
