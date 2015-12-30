@@ -1,5 +1,6 @@
 package realexp.realexp;
 
+import android.content.Context;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
@@ -13,13 +14,11 @@ import android.widget.Toast;
 
 public class Main extends AppCompatActivity {
 
-    private static final int PROGRESS = 0x1;
 
     private ProgressBar mProgress;
     int level = 1;
-    int max_exp = 100;
-
-
+    static int max_exp;
+    User user;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -28,8 +27,11 @@ public class Main extends AppCompatActivity {
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-        mProgress = (ProgressBar) findViewById(R.id.exp_bar);
+        max_exp = user.get_max_exp();
 
+        //user.expBar = (ProgressBar) findViewById(R.id.exp_bar);
+        mProgress = (ProgressBar) findViewById(R.id.exp_bar);
+        mProgress.setMax(max_exp);
 
     }
 
@@ -55,21 +57,33 @@ public class Main extends AppCompatActivity {
         return super.onOptionsItemSelected(item);
     }
 
-    public void GainExp(View view)
-    {
-        mProgress.incrementProgressBy(5);
-        if(mProgress.getProgress() >= mProgress.getMax())
-        {
-            level = level + 1;
-            mProgress.setMax(mProgress.getMax() + 10);
-            mProgress.setProgress(0);
-
-            Toast toasty = Toast.makeText(this, "Level Up! You are now level " + level + ".", Toast.LENGTH_LONG);
-            toasty.show();
-
-        }
-
+    public void Gain1Exp(View view) {
+        user.GainExp(1); //FIX
         Snackbar snackbar = Snackbar.make(view, "You got 1 EXP!", Snackbar.LENGTH_LONG);
         snackbar.setAction("Action", null).show();
+    }
+
+    public void Gain50Exp(View view) {
+        //mProgress.incrementProgressBy(50);
+
+        if(mProgress.getProgress() >= mProgress.getMax())
+        {
+            //LevelUp(view);
+        }
+
+        Snackbar snackbar = Snackbar.make(view, "You got 50 EXP!" + max_exp, Snackbar.LENGTH_LONG);
+        snackbar.setAction("Action", null).show();
+
+    }
+
+    public void LevelUp(View view)
+    {
+        user.LevelUp();
+        /*level = level + 1;
+        mProgress.setProgress(mProgress.getProgress() - mProgress.getMax()); //This always returns 0, since we can't go over the max. Should we roll over exp?
+        mProgress.setMax(mProgress.getMax() + 10); //TO DO: Set scaling of max EXP
+
+        Toast toasty = Toast.makeText(this, "Level Up! You are now level " + level + ".", Toast.LENGTH_LONG);
+        toasty.show();*/
     }
 }

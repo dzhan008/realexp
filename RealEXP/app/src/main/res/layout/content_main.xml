@@ -24,17 +24,17 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="1 Exp"
-            android:onClick="GainExp"/>
+            android:onClick="Gain1Exp"/>
         <Button
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="50 Exp"
-            android:onClick="GainExp"/>
+            android:onClick="Gain50Exp"/>
         <Button
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Level Up!"
-            android:onClick="GainExp"/>
+            android:onClick="LevelUp"/>
 
     </LinearLayout>
 
