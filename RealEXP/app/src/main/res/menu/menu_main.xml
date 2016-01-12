@@ -7,4 +7,9 @@
         android:orderInCategory="100"
         android:title="@string/action_settings"
         app:showAsAction="never" />
+    <item
+        android:id="@+id/goToCheckList"
+        android:orderInCategory="100"
+        android:title="@string/checklist"
+        app:showAsAction="never" />
 </menu>

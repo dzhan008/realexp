@@ -1,5 +1,6 @@
 package realexp.realexp;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
@@ -44,6 +45,12 @@ public class Main extends AppCompatActivity {
 
         //noinspection SimplifiableIfStatement
         if (id == R.id.action_settings) {
+            return true;
+        }
+        else if (id == R.id.goToCheckList)
+        {
+            finish();
+            startActivity(new Intent(this, CheckList_Activity.class));
             return true;
         }
 
