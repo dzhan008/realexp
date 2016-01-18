@@ -1,7 +1,6 @@
 package realexp.realexp;
 
-import android.content.Context;
-import android.content.pm.PackageManager;
+import android.content.res.Configuration;
 import android.hardware.Sensor;
 import android.hardware.SensorEvent;
 import android.hardware.SensorEventListener;
@@ -11,25 +10,41 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.location.*;
 import android.view.View;
 import android.widget.TextView;
 
-import java.util.jar.Manifest;
 
-public class Location extends AppCompatActivity {
+public class Location extends AppCompatActivity implements SensorEventListener {
 
-    android.location.LocationManager locationM;
     float steps;
+    TextView txtSteps;
+    SensorManager sensorM;
+    Sensor sensorSteps;
 
+    // Sensor Event Listener
+    @Override
+    public void onSensorChanged(SensorEvent event) {
+        steps = event.values[0];
+        txtSteps.setText(Float.toString(steps));
+    }
+
+    @Override
+    public void onAccuracyChanged(Sensor sensor, int accuracy) {
+
+    }
+
+
+    // Activity
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_location);
 
-        locationM = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
         steps = 0;
-
+        txtSteps = (TextView) findViewById(R.id.txtSteps);
+        sensorM = (SensorManager) getSystemService(SENSOR_SERVICE);
+        sensorSteps = sensorM.getDefaultSensor(Sensor.TYPE_STEP_COUNTER);
+        sensorM.registerListener(this, sensorSteps, SensorManager.SENSOR_DELAY_FASTEST);
     }
 
     @Override
@@ -45,7 +60,6 @@ public class Location extends AppCompatActivity {
         // automatically handle clicks on the Home/Up button, so long
         // as you specify a parent activity in AndroidManifest.xml.
         int id = item.getItemId();
-
         //noinspection SimplifiableIfStatement
         if (id == R.id.action_settings) {
             return true;
@@ -54,7 +68,22 @@ public class Location extends AppCompatActivity {
         return super.onOptionsItemSelected(item);
     }
 
-    public void btnLocation_Click(View v) {
+    @Override
+    public void onConfigurationChanged(Configuration newConfig) {
+        super.onConfigurationChanged(newConfig);
+
+        txtSteps.setText(Float.toString(steps));
+    }
+
+    // User Defined
+    public void btnReset_Click(View v) {
+        steps = 0;
+        txtSteps.setText("0");
+        sensorM.unregisterListener(this, sensorSteps);
+
+    }
+
+    /*public void btnLocation_Click(View v) {
         try {
             android.location.Location l = locationM.getLastKnownLocation(locationM.GPS_PROVIDER);
             double lat = l.getLatitude();
@@ -69,29 +98,9 @@ public class Location extends AppCompatActivity {
             Log.e("PERMISSION", "ACCESS_FINE_LOCATION");
         }
     }
+    */
 
-    public void btnSteps_Click(View v) {
-        final TextView txtsteps = (TextView) findViewById(R.id.txtSteps);
 
-        SensorManager sensorM = (SensorManager) getSystemService(Context.SENSOR_SERVICE);
-        Sensor sensorSteps = sensorM.getDefaultSensor(Sensor.TYPE_STEP_COUNTER);
-        sensorM.registerListener(new SensorEventListener() {
-            @Override
-            public void onSensorChanged(SensorEvent event) {
-                if (event.values.length > 0) {
-                    steps = event.values[0];
-                }
-                txtsteps.setText(Float.toString(steps));
-            }
-
-            @Override
-            public void onAccuracyChanged(Sensor sensor, int accuracy) {
-
-            }
-
-        }, sensorSteps, SensorManager.SENSOR_DELAY_FASTEST);
-
-    }
 
 
 }
