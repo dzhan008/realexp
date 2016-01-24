@@ -2,21 +2,19 @@ package realexp.realexp;
 
 import android.app.Application;
 import android.content.Context;
+import android.content.Intent;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.ProgressBar;
 import android.widget.Toast;
 
-/**
- * Created by Skillinazn on 12/24/2015.
- */
 public class User extends Application {
 
     ProgressBar expBar;
     static int level;
     static int curr_exp;
-    static int max_exp = 200;
+    static int max_exp = 250;
 
     public User()
     {
@@ -42,12 +40,14 @@ public class User extends Application {
         curr_exp = curr_exp + amount;
         if(curr_exp >= max_exp)
         {
-            LevelUp();
+            //LevelUp();
         }
     }
 
-    static void LevelUp()
+    void LevelUp()
     {
+        Intent intent = new Intent(context, User.class);
+        startActivity(intent);
         level = level + 1;
 
         curr_exp = curr_exp - max_exp; //Carries over exp from before
