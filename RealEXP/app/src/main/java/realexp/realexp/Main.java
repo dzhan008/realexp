@@ -55,4 +55,9 @@ public class Main extends AppCompatActivity {
         Intent intent = new Intent(this, Pedometer.class);
         startActivity(intent);
     }
+
+    public void btnHeartrate_Click (View v) {
+        Intent intent = new Intent(this, Heartrate.class);
+        startActivity(intent);
+    }
 }

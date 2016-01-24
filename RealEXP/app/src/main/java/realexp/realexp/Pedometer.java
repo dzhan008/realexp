@@ -17,6 +17,7 @@ import android.widget.TextView;
 
 public class Pedometer extends AppCompatActivity implements SensorEventListener {
 
+    float iSteps = -1;
     float steps;
     TextView txtSteps;
     SensorManager sensorM;
@@ -25,8 +26,13 @@ public class Pedometer extends AppCompatActivity implements SensorEventListener 
     // Sensor Event Listener
     @Override
     public void onSensorChanged(SensorEvent event) {
-        steps = event.values[0];
-        txtSteps.setText(Float.toString(steps));
+        if (iSteps == -1) {
+            iSteps = event.values[0];
+            Log.i("Initial Steps", Float.toString(iSteps));
+        }
+        steps = event.values[0] - iSteps;
+        Log.i("Timestamp Step", Long.toString(event.timestamp));
+        txtSteps.setText(Integer.toString((int) steps));
     }
 
     @Override
@@ -73,9 +79,22 @@ public class Pedometer extends AppCompatActivity implements SensorEventListener 
     public void onConfigurationChanged(Configuration newConfig) {
         super.onConfigurationChanged(newConfig);
 
-        txtSteps.setText(Float.toString(steps));
     }
 
+    @Override
+    protected void onSaveInstanceState(Bundle outState) {
+        super.onSaveInstanceState(outState);
+        outState.putFloat("steps", steps);
+        outState.putFloat("iSteps", iSteps);
+
+    }
+
+    @Override
+    protected void onRestoreInstanceState(Bundle savedInstanceState) {
+        super.onRestoreInstanceState(savedInstanceState);
+        steps = savedInstanceState.getFloat("steps");
+        iSteps = savedInstanceState.getFloat("iSteps");
+    }
 
     /*public void btnLocation_Click(View v) {
         try {
