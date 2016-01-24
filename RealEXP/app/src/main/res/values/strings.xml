@@ -7,6 +7,9 @@
 
     <string name="tdtitle">Title</string>
     <string name="tddescription">Description</string>
-    <string name="selectdate">Select Date</string>
-    <string name="selecttime">Select Time</string>
+    <string name="tdtype">Type</string>
+    <string name="selectDate">Select Date</string>
+    <string name="selectTime">Select Time</string>
+    <string name="displayDate">Month Day Year</string>
+    <string name="displayTime">00:00 AM/PM</string>
 </resources>

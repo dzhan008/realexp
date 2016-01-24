@@ -18,7 +18,18 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:id="@+id/add_title"/>
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/tdtype"
+        android:layout_marginTop="20dp"
+        android:layout_marginLeft="5dp"
+        android:textSize="17sp" />
 
+    <EditText
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/add_type"/>
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -30,19 +41,29 @@
     <EditText
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:id="@+id/add_description"
-        android:inputType="textPassword"/>
+        android:id="@+id/add_description" />
+
     <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/selectdate"
+        android:text="@string/selectDate"
         android:id="@+id/button_date"
         android:onClick="doDatePicker"/>
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/date_text"
+        android:text="@string/displayDate" />
     <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/selecttime"
+        android:text="@string/selectTime"
         android:id="@+id/button_time" />
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/time_text"
+        android:text="@string/displayTime"/>
     <Button
         android:layout_width="match_parent"
         android:layout_height="wrap_content"

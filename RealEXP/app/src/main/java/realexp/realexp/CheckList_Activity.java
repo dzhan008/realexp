@@ -9,6 +9,7 @@ import android.widget.ImageButton;
 public class CheckList_Activity extends ActionBarActivity implements View.OnClickListener {
 
     ImageButton addToDo;
+    CheckList myCheckList;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
