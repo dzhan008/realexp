@@ -1,5 +1,6 @@
 package realexp.realexp;
 
+import android.content.Context;
 import android.content.res.Configuration;
 import android.hardware.Sensor;
 import android.hardware.SensorEvent;
@@ -14,7 +15,7 @@ import android.view.View;
 import android.widget.TextView;
 
 
-public class Location extends AppCompatActivity implements SensorEventListener {
+public class Pedometer extends AppCompatActivity implements SensorEventListener {
 
     float steps;
     TextView txtSteps;
@@ -42,7 +43,7 @@ public class Location extends AppCompatActivity implements SensorEventListener {
 
         steps = 0;
         txtSteps = (TextView) findViewById(R.id.txtSteps);
-        sensorM = (SensorManager) getSystemService(SENSOR_SERVICE);
+        sensorM = (SensorManager) getSystemService(Context.SENSOR_SERVICE);
         sensorSteps = sensorM.getDefaultSensor(Sensor.TYPE_STEP_COUNTER);
         sensorM.registerListener(this, sensorSteps, SensorManager.SENSOR_DELAY_FASTEST);
     }
@@ -75,13 +76,6 @@ public class Location extends AppCompatActivity implements SensorEventListener {
         txtSteps.setText(Float.toString(steps));
     }
 
-    // User Defined
-    public void btnReset_Click(View v) {
-        steps = 0;
-        txtSteps.setText("0");
-        sensorM.unregisterListener(this, sensorSteps);
-
-    }
 
     /*public void btnLocation_Click(View v) {
         try {

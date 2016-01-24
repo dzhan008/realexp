@@ -52,7 +52,7 @@ public class Main extends AppCompatActivity {
     }
 
     public void btnLocationA_onClick(View v) {
-        Intent intent = new Intent(this, Location.class);
+        Intent intent = new Intent(this, Pedometer.class);
         startActivity(intent);
     }
 }
