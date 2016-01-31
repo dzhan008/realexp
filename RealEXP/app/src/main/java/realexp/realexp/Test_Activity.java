@@ -37,9 +37,9 @@ public class Test_Activity extends AppCompatActivity {
 
     public void Check(View view) //TEST
     {
-        Intent resultIntent = new Intent();
-        resultIntent.putExtra("updated_user",user);
-        setResult(RESULT_OK, resultIntent);
+        Intent resultIntent = new Intent(); //Creates a new intent to send back to the previous activity
+        resultIntent.putExtra("updated_user",user); //Puts the updated user class away
+        setResult(RESULT_OK, resultIntent); //Set the condition to OK to make the activity know that the intent is successfully made.
 
         Snackbar snackbar = Snackbar.make(view, "You have " + user.get_curr_exp() + " exp.", Snackbar.LENGTH_LONG);
         snackbar.setAction("Action", null).show();

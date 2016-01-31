@@ -56,11 +56,11 @@ public class Main extends AppCompatActivity {
     }
 
     @Override
-    public void onActivityResult(int requestCode, int resultCode, Intent data)
+    public void onActivityResult(int requestCode, int resultCode, Intent data) //USED ONLY setResult is used
     {
-        if(resultCode == RESULT_OK)
+        if(resultCode == RESULT_OK)  //Did the intent actually go through?
         {
-            user = data.getParcelableExtra("updated_user");
+            user = data.getParcelableExtra("updated_user"); //Update the user data.
         }
     }
 
