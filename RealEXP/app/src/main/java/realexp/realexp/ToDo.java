@@ -7,12 +7,13 @@ public class ToDo implements Parcelable {
     private int ID;
     private String title;
     private String description;
+    private String type;
     private int month;
     private int date;
     private int year;
     private int hourTime;
     private int minuteTime;
-    private int diffiulty; //1 Easy, 2 Medium, 3 Hard
+    private int difficulty; //1 Easy, 2 Medium, 3 Hard
     private int experience;
     private int gold;
     private int priority;
@@ -22,15 +23,36 @@ public class ToDo implements Parcelable {
         ID = in.readInt();
         title = in.readString();
         description = in.readString();
+        type = in.readString();
         month = in.readInt();
         date = in.readInt();
         year = in.readInt();
         hourTime = in.readInt();
         minuteTime = in.readInt();
-        diffiulty = in.readInt();
+        difficulty = in.readInt();
         experience = in.readInt();
         gold = in.readInt();
         priority = in.readInt();
+    }
+
+    protected ToDo(int id, String title, String description, String type, int month, int date,
+                   int year, int hourTime, int minuteTime, int difficulty, int experience, int gold,
+                    int priority)
+    {
+        ID = id;
+        this.title = title;
+        this.description = description;
+        this.type = type;
+        this.month = month;
+        this.date = date;
+        this.year = year;
+        this.hourTime = hourTime;
+        this.minuteTime = minuteTime;
+        this.difficulty = difficulty;
+        this.experience = experience;
+        this.gold = gold;
+        this.priority = priority;
+
     }
 
     @Override
@@ -43,12 +65,13 @@ public class ToDo implements Parcelable {
         dest.writeInt(ID);
         dest.writeString(title);
         dest.writeString(description);
+        dest.writeString(type);
         dest.writeInt(month);
         dest.writeInt(date);
         dest.writeInt(year);
         dest.writeInt(hourTime);
         dest.writeInt(minuteTime);
-        dest.writeInt(diffiulty);
+        dest.writeInt(difficulty);
         dest.writeInt(experience);
         dest.writeInt(gold);
         dest.writeInt(priority);
