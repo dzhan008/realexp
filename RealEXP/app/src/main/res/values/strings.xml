@@ -1,11 +1,9 @@
 <resources>
-    <string name="app_name">Real EXP</string>
+    <string name="app_name">RealEXP</string>
     <string name="action_settings">Settings</string>
-<<<<<<< HEAD
+
     <string name="title_activity_maps">Map</string>
-=======
+
     <string name="title_activity_location">Map</string>
 
-    <string name="hello_world">Hello world!</string>
->>>>>>> refs/remotes/origin/b_branch
 </resources>
