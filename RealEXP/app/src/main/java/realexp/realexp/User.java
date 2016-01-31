@@ -3,60 +3,114 @@ package realexp.realexp;
 import android.app.Application;
 import android.content.Context;
 import android.content.Intent;
+import android.os.Parcel;
+import android.os.Parcelable;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
-import android.widget.ProgressBar;
-import android.widget.Toast;
+import java.io.Serializable;
 
-public class User extends Application {
+import java.io.Serializable;
 
-    ProgressBar expBar;
-    static int level;
-    static int curr_exp;
-    static int max_exp = 250;
+/**
+ * Created by Skillinazn on 12/24/2015.
+ */
+public class User extends Application implements Parcelable {
+
+    private int level = 1;
+    private int curr_exp = 0;
+    private int max_exp = 100;
+
+    //static Context context = getApplicationContext();
 
     public User()
     {
         level = 1;
         curr_exp = 0;
-        max_exp = 200;
+        max_exp = 100;
     }
 
-    static Context context;// = getApplicationContext();
-
-    static int get_max_exp()
-    {
-        return max_exp;
+    public User(Parcel p)
+    {   //Note: This is read in order of what was written!
+        level = p.readInt();
+        curr_exp = p.readInt();
+        max_exp = p.readInt();
     }
 
-    void init()
+    public int describeContents()
     {
-        expBar.setMax(max_exp);
+        return 0;
     }
 
-    static void GainExp(int amount)
+    public void writeToParcel (Parcel dest, int flags)
     {
-        curr_exp = curr_exp + amount;
+        dest.writeInt(level);
+        dest.writeInt(curr_exp);
+        dest.writeInt(max_exp);
+    }
+
+    public static final Parcelable.Creator<User> CREATOR = new  Parcelable.Creator<User>()
+    {
+        @Override
+        public User createFromParcel(Parcel parcel)
+        {
+            return new User(parcel);
+        }
+
+        @Override
+        public User[] newArray(int size)
+        {
+            return new User[size];
+        }
+
+    };
+
+    public int get_max_exp()
+    {
+        return this.max_exp;
+    }
+
+    public int get_curr_exp() { return this.curr_exp; }
+
+    void set_max_exp(int exp)
+    {
+        max_exp = exp;
+    }
+
+    void set_curr_exp(int exp)
+    {
+        curr_exp = exp;
+    }
+
+    void gain_exp(int amount)
+    {
+        this.curr_exp = this.curr_exp + amount;
         if(curr_exp >= max_exp)
         {
             //LevelUp();
         }
     }
 
-    void LevelUp()
+    void set_level(int lvl)
     {
-        Intent intent = new Intent(context, User.class);
-        startActivity(intent);
+        level = lvl;
+    }
+
+    void level_up(View view)
+    {
         level = level + 1;
+        if(curr_exp > max_exp)
+        {
+            curr_exp -= max_exp; //Carries over exp from before
+        }
+        else
+        {
+            curr_exp *= 0;
+        }
+        max_exp += 10; //TO DO: Set scaling of max EXP
 
-        curr_exp = curr_exp - max_exp; //Carries over exp from before
-        max_exp = max_exp + 10; //TO DO: Set scaling of max EXP
-
-        //expBar.setProgress(expBar.getProgress() - expBar.getMax()); //This always returns 0, since we can't go over the max. Should we roll over exp?
-        //expBar.setMax(expBar.getMax() + 10);
-        Toast toasty = Toast.makeText(context, "Level Up! You are now level " + level + ".", Toast.LENGTH_LONG);
-        toasty.show();
+        Snackbar snackbar = Snackbar.make(view, "Level up! You are now level " + level + ".", Snackbar.LENGTH_LONG);
+        snackbar.setAction("Action", null).show();
     }
 
 }

@@ -13,6 +13,15 @@
     tools:context="realexp.realexp.Main"
     tools:showIn="@layout/activity_main">
 
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Username: Admin" />
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Level: " />
+
     <LinearLayout
         android:id="@+id/buttons"
         android:layout_width="match_parent"

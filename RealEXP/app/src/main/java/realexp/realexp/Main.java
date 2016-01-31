@@ -1,6 +1,7 @@
 package realexp.realexp;
 
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
@@ -10,15 +11,14 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ProgressBar;
-import android.widget.Toast;
 
 public class Main extends AppCompatActivity {
 
-
-    private ProgressBar mProgress;
-    int level = 1;
-    static int max_exp;
     User user;
+    private ProgressBar mProgress;
+    int max_exp;
+    int curr_exp;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -27,11 +27,9 @@ public class Main extends AppCompatActivity {
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-        max_exp = user.get_max_exp();
-
-        //user.expBar = (ProgressBar) findViewById(R.id.exp_bar);
+        user = ((User)getApplication()); //Figure out why this works.
         mProgress = (ProgressBar) findViewById(R.id.exp_bar);
-        mProgress.setMax(max_exp);
+        mProgress.setMax(user.get_max_exp());
 
     }
 
@@ -57,33 +55,50 @@ public class Main extends AppCompatActivity {
         return super.onOptionsItemSelected(item);
     }
 
-    public void Gain1Exp(View view) {
-        user.GainExp(1); //FIX
-        Snackbar snackbar = Snackbar.make(view, "You got 1 EXP!", Snackbar.LENGTH_LONG);
-        snackbar.setAction("Action", null).show();
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data)
+    {
+        if(resultCode == RESULT_OK)
+        {
+            user = data.getParcelableExtra("updated_user");
+        }
     }
 
-    public void Gain50Exp(View view) {
-        //mProgress.incrementProgressBy(50);
+    public void Gain1Exp(View view) {
+        user.gain_exp(1); //FIX
+        mProgress.incrementProgressBy(1);
+
+        Snackbar snackbar = Snackbar.make(view, "You got 1 EXP!" + user.get_curr_exp(), Snackbar.LENGTH_LONG);
+        snackbar.setAction("Action", null).show();
 
         if(mProgress.getProgress() >= mProgress.getMax())
         {
-            //LevelUp(view);
+            LevelUp(view);
         }
+    }
 
-        Snackbar snackbar = Snackbar.make(view, "You got 50 EXP!" + max_exp, Snackbar.LENGTH_LONG);
+    public void Gain50Exp(View view) {
+        user.gain_exp(50);
+        mProgress.incrementProgressBy(50);
+
+        Snackbar snackbar = Snackbar.make(view, "You got 50 EXP!" + user.get_curr_exp(), Snackbar.LENGTH_LONG);
         snackbar.setAction("Action", null).show();
 
+        if(mProgress.getProgress() >= mProgress.getMax())
+        {
+            LevelUp(view);
+        }
     }
 
     public void LevelUp(View view)
     {
-        user.LevelUp();
-        /*level = level + 1;
-        mProgress.setProgress(mProgress.getProgress() - mProgress.getMax()); //This always returns 0, since we can't go over the max. Should we roll over exp?
-        mProgress.setMax(mProgress.getMax() + 10); //TO DO: Set scaling of max EXP
+        //user.level_up(view);
 
-        Toast toasty = Toast.makeText(this, "Level Up! You are now level " + level + ".", Toast.LENGTH_LONG);
-        toasty.show();*/
+        mProgress.setProgress(user.get_curr_exp());
+        mProgress.setMax(user.get_max_exp()); //TO DO: Set scaling of max EXP
+
+        Intent intent = new Intent(this, Test_Activity.class);
+        intent.putExtra("user", user);
+        startActivityForResult(intent, 42);
     }
 }
