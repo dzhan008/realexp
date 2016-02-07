@@ -11,8 +11,7 @@ import com.google.android.gms.maps.model.MarkerOptions;
 
 public class Main extends FragmentActivity implements OnMapReadyCallback {
 
-    private GoogleMap mMap;
-
+    protected GoogleMap map;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -21,11 +20,19 @@ public class Main extends FragmentActivity implements OnMapReadyCallback {
                 .findFragmentById(R.id.map);
         mapFragment.getMapAsync(this);
     }
-
     @Override
     public void onMapReady(GoogleMap map) {
+        map.setMapType(map.MAP_TYPE_HYBRID);
+
         LatLng UCR = new LatLng(33.975, -117.329);
-        map.moveCamera(CameraUpdateFactory.newLatLng(UCR));
         map.addMarker(new MarkerOptions().position(UCR).title("UCR"));
+        moveToCurrentLocation(UCR);
+    }
+    private void moveToCurrentLocation(LatLng currentLocation)
+    {
+        map.moveCamera(CameraUpdateFactory.newLatLngZoom(currentLocation, 5.0f));
+        //map.animateCamera(CameraUpdateFactory.zoomIn());
+        //map.animateCamera(CameraUpdateFactory.zoomTo(15), 2000, null);
+        map.setOnCameraChangeListener(null);
     }
 }
