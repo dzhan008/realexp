@@ -60,7 +60,7 @@ public class Main extends AppCompatActivity {
     }
 
     public void Gain1Exp(View view) {
-        user.gain_exp(1); 
+        user.gain_exp(1);
         mProgress.incrementProgressBy(1);
 
         Snackbar snackbar = Snackbar.make(view, "You got 1 EXP!" + user.get_curr_exp(), Snackbar.LENGTH_LONG);
