@@ -89,6 +89,11 @@ public class ToDo implements Parcelable {
             return new ToDo[size];
         }
     };
+
+    public String get_title()
+    {
+        return title;
+    }
 }
 /*
     //maybe make it so that later on, users can just say a time period and we set the date for them

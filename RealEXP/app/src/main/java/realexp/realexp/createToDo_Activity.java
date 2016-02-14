@@ -56,7 +56,6 @@ public class createToDo_Activity extends FragmentActivity implements View.OnClic
             case R.id.button_submit:
                 //get the text the user put in and convert it to a string
                 if (!checkEmptyInput()) {
-                    finish();
                     createQuest();
                 }
                 break;
@@ -88,19 +87,20 @@ public class createToDo_Activity extends FragmentActivity implements View.OnClic
     private void createQuest()
     {
         /*
-            private int ID;
-    private String title;
-    private String description;
-    private int month;
-    private int date;
-    private int year;
-    private int hourTime;
-    private int minuteTime;
-    private int difficulty; //1 Easy, 2 Medium, 3 Hard
-    private int experience;
-    private int gold;
-    private int priority;
+        private int ID;
+        private String title;
+        private String description;
+        private int month;
+        private int date;
+        private int year;
+        private int hourTime;
+        private int minuteTime;
+        private int difficulty; //1 Easy, 2 Medium, 3 Hard
+        private int experience;
+        private int gold;
+        private int priority;
          */
+
         String Title = tdtitle.getText().toString();
         String Description = tddescription.getText().toString();
         String Type = tdtype.getText().toString();
@@ -109,8 +109,9 @@ public class createToDo_Activity extends FragmentActivity implements View.OnClic
         ToDo quest = new ToDo(1, Title,Description, Type, 1, 31, 2016, 0, 0, 3, 100, 200, 1);
 
         Intent intent = new Intent(this, CheckList_Activity.class);
-        intent.putExtra("com.package.ToDo", quest);
-        startActivity(intent);
+        intent.putExtra("quest", quest);
+        setResult(RESULT_OK, intent);
+        finish();
     }
 }
 
