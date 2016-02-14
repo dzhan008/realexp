@@ -1,7 +1,10 @@
 package realexp.realexp;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
+import android.view.View;
+
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.MapFragment;
@@ -34,5 +37,15 @@ public class Main extends FragmentActivity implements OnMapReadyCallback {
         //map.animateCamera(CameraUpdateFactory.zoomIn());
         //map.animateCamera(CameraUpdateFactory.zoomTo(15), 2000, null);
         map.setOnCameraChangeListener(null);
+    }
+
+    public void btnLocationA_onClick(View v) {
+        Intent intent = new Intent(this, Pedometer.class);
+        startActivity(intent);
+    }
+
+    public void btnHeartrate_Click (View v) {
+        Intent intent = new Intent(this, Heartrate.class);
+        startActivity(intent);
     }
 }
