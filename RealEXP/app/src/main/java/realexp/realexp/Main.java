@@ -1,9 +1,7 @@
 package realexp.realexp;
 
-import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
@@ -16,9 +14,6 @@ public class Main extends AppCompatActivity {
 
     User user;
     private ProgressBar mProgress;
-    int max_exp;
-    int curr_exp;
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -65,7 +60,7 @@ public class Main extends AppCompatActivity {
     }
 
     public void Gain1Exp(View view) {
-        user.gain_exp(1); //FIX
+        user.gain_exp(1); 
         mProgress.incrementProgressBy(1);
 
         Snackbar snackbar = Snackbar.make(view, "You got 1 EXP!" + user.get_curr_exp(), Snackbar.LENGTH_LONG);
