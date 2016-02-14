@@ -2,41 +2,52 @@ package realexp.realexp;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.v4.app.FragmentActivity;
+import android.support.design.widget.Snackbar;
+import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.Toolbar;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
+import android.widget.ProgressBar;
 
-import com.google.android.gms.maps.CameraUpdateFactory;
-import com.google.android.gms.maps.GoogleMap;
-import com.google.android.gms.maps.MapFragment;
-import com.google.android.gms.maps.OnMapReadyCallback;
-import com.google.android.gms.maps.model.LatLng;
-import com.google.android.gms.maps.model.MarkerOptions;
+public class Main extends AppCompatActivity {
 
-public class Main extends FragmentActivity implements OnMapReadyCallback {
+    User user;
+    private ProgressBar mProgress;
 
-    protected GoogleMap map;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_maps);
-        MapFragment mapFragment = (MapFragment) getFragmentManager()
-                .findFragmentById(R.id.map);
-        mapFragment.getMapAsync(this);
-    }
-    @Override
-    public void onMapReady(GoogleMap map) {
-        map.setMapType(map.MAP_TYPE_HYBRID);
+        setContentView(R.layout.activity_main);
+        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
 
-        LatLng UCR = new LatLng(33.975, -117.329);
-        map.addMarker(new MarkerOptions().position(UCR).title("UCR"));
-        moveToCurrentLocation(UCR);
+        user = ((User)getApplication()); //Figure out why this works.
+        mProgress = (ProgressBar) findViewById(R.id.exp_bar);
+        mProgress.setMax(user.get_max_exp());
+
     }
-    private void moveToCurrentLocation(LatLng currentLocation)
-    {
-        map.moveCamera(CameraUpdateFactory.newLatLngZoom(currentLocation, 5.0f));
-        //map.animateCamera(CameraUpdateFactory.zoomIn());
-        //map.animateCamera(CameraUpdateFactory.zoomTo(15), 2000, null);
-        map.setOnCameraChangeListener(null);
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        // Inflate the menu; this adds items to the action bar if it is present.
+        getMenuInflater().inflate(R.menu.menu_main, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        // Handle action bar item clicks here. The action bar will
+        // automatically handle clicks on the Home/Up button, so long
+        // as you specify a parent activity in AndroidManifest.xml.
+        int id = item.getItemId();
+
+        //noinspection SimplifiableIfStatement
+        if (id == R.id.action_settings) {
+            return true;
+        }
+
+        return super.onOptionsItemSelected(item);
     }
 
     public void btnLocationA_onClick(View v) {
@@ -47,5 +58,50 @@ public class Main extends FragmentActivity implements OnMapReadyCallback {
     public void btnHeartrate_Click (View v) {
         Intent intent = new Intent(this, Heartrate.class);
         startActivity(intent);
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) //USED ONLY setResult is used
+    {
+        if(resultCode == RESULT_OK)  //Did the intent actually go through?
+        {
+            user = data.getParcelableExtra("updated_user"); //Update the user data.
+        }
+    }
+
+    public void Gain1Exp(View view) {
+        user.gain_exp(1);
+        mProgress.incrementProgressBy(1);
+
+        Snackbar snackbar = Snackbar.make(view, "You got 1 EXP!" + user.get_curr_exp(), Snackbar.LENGTH_LONG);
+        snackbar.setAction("Action", null).show();
+
+        if(mProgress.getProgress() >= mProgress.getMax())
+        {
+            LevelUp(view);
+        }
+    }
+
+    public void Gain50Exp(View view) {
+        user.gain_exp(50);
+        mProgress.incrementProgressBy(50);
+
+        Snackbar snackbar = Snackbar.make(view, "You got 50 EXP!" + user.get_curr_exp(), Snackbar.LENGTH_LONG);
+        snackbar.setAction("Action", null).show();
+
+        if(mProgress.getProgress() >= mProgress.getMax())
+        {
+            LevelUp(view);
+        }
+    }
+
+    public void LevelUp(View view)
+    {
+        //user.level_up(view);
+
+        mProgress.setProgress(user.get_curr_exp());
+        mProgress.setMax(user.get_max_exp()); //TO DO: Set scaling of max EXP
+
+        Intent intent = new Intent(this, Test_Activity.class);
+        intent.putExtra("user", user);
+        startActivityForResult(intent, 42);
     }
 }
