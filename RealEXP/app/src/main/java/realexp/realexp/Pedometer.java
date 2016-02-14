@@ -57,7 +57,7 @@ public class Pedometer extends AppCompatActivity implements SensorEventListener 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.menu_location, menu);
+        getMenuInflater().inflate(R.menu.menu_pedometer, menu);
         return true;
     }
 
