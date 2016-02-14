@@ -1,63 +1,43 @@
 package realexp.realexp;
 
 import android.content.Context;
-import android.content.res.Configuration;
+import android.content.pm.PackageManager;
 import android.hardware.Sensor;
 import android.hardware.SensorEvent;
 import android.hardware.SensorEventListener;
 import android.hardware.SensorManager;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.location.*;
 import android.view.View;
 import android.widget.TextView;
 
+import java.util.jar.Manifest;
 
-public class Pedometer extends AppCompatActivity implements SensorEventListener {
+public class Location extends AppCompatActivity {
 
-    float iSteps = -1;
+
+    android.location.LocationManager locationM;
     float steps;
-    TextView txtSteps;
-    SensorManager sensorM;
-    Sensor sensorSteps;
 
-    // Sensor Event Listener
-    @Override
-    public void onSensorChanged(SensorEvent event) {
-        if (iSteps == -1) {
-            iSteps = event.values[0];
-            Log.i("Initial Steps", Float.toString(iSteps));
-        }
-        steps = event.values[0] - iSteps;
-        Log.i("Timestamp Step", Long.toString(event.timestamp));
-        txtSteps.setText(Integer.toString((int) steps));
-    }
-
-    @Override
-    public void onAccuracyChanged(Sensor sensor, int accuracy) {
-
-    }
-
-
-    // Activity
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_location);
 
+        locationM = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
         steps = 0;
-        txtSteps = (TextView) findViewById(R.id.txtSteps);
-        sensorM = (SensorManager) getSystemService(Context.SENSOR_SERVICE);
-        sensorSteps = sensorM.getDefaultSensor(Sensor.TYPE_STEP_COUNTER);
-        sensorM.registerListener(this, sensorSteps, SensorManager.SENSOR_DELAY_FASTEST);
+
     }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.menu_pedometer, menu);
+        getMenuInflater().inflate(R.menu.menu_location, menu);
         return true;
     }
 
@@ -67,6 +47,7 @@ public class Pedometer extends AppCompatActivity implements SensorEventListener 
         // automatically handle clicks on the Home/Up button, so long
         // as you specify a parent activity in AndroidManifest.xml.
         int id = item.getItemId();
+
         //noinspection SimplifiableIfStatement
         if (id == R.id.action_settings) {
             return true;
@@ -75,28 +56,7 @@ public class Pedometer extends AppCompatActivity implements SensorEventListener 
         return super.onOptionsItemSelected(item);
     }
 
-    @Override
-    public void onConfigurationChanged(Configuration newConfig) {
-        super.onConfigurationChanged(newConfig);
-
-    }
-
-    @Override
-    protected void onSaveInstanceState(Bundle outState) {
-        super.onSaveInstanceState(outState);
-        outState.putFloat("steps", steps);
-        outState.putFloat("iSteps", iSteps);
-
-    }
-
-    @Override
-    protected void onRestoreInstanceState(Bundle savedInstanceState) {
-        super.onRestoreInstanceState(savedInstanceState);
-        steps = savedInstanceState.getFloat("steps");
-        iSteps = savedInstanceState.getFloat("iSteps");
-    }
-
-    /*public void btnLocation_Click(View v) {
+    public void btnLocation_Click(View v) {
         try {
             android.location.Location l = locationM.getLastKnownLocation(locationM.GPS_PROVIDER);
             double lat = l.getLatitude();
@@ -111,9 +71,29 @@ public class Pedometer extends AppCompatActivity implements SensorEventListener 
             Log.e("PERMISSION", "ACCESS_FINE_LOCATION");
         }
     }
-    */
 
+    public void btnSteps_Click(View v) {
+        final TextView txtsteps = (TextView) findViewById(R.id.txtSteps);
 
+        SensorManager sensorM = (SensorManager) getSystemService(Context.SENSOR_SERVICE);
+        Sensor sensorSteps = sensorM.getDefaultSensor(Sensor.TYPE_STEP_COUNTER);
+        sensorM.registerListener(new SensorEventListener() {
+            @Override
+            public void onSensorChanged(SensorEvent event) {
+                if (event.values.length > 0) {
+                    steps = event.values[0];
+                }
+                txtsteps.setText(Float.toString(steps));
+            }
+
+            @Override
+            public void onAccuracyChanged(Sensor sensor, int accuracy) {
+
+            }
+
+        }, sensorSteps, SensorManager.SENSOR_DELAY_FASTEST);
+
+    }
 
 
 }
