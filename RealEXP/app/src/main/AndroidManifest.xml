@@ -21,7 +21,10 @@
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
     <uses-permission android:name="android.permission.BODY_SENSORS" />
 
+    <!-- To get user class to work, we use android:name=".User" -->
     <application
+
+        android:name=".User"
         android:allowBackup="true"
         android:debuggable="true"
         android:icon="@mipmap/ic_launcher"
@@ -58,6 +61,10 @@
             android:name=".Heartrate"
             android:label="@string/title_activity_heartrate" >
         </activity>
+        <activity
+            android:name=".Test_Activity"
+            android:label="@string/title_activity_test_"
+            android:theme="@style/AppTheme.NoActionBar"></activity>
     </application>
 
 </manifest>

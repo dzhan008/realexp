@@ -2,15 +2,18 @@ package realexp.realexp;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
-import android.view.View;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.ProgressBar;
 
 public class Main extends AppCompatActivity {
+
+    User user;
+    private ProgressBar mProgress;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -19,14 +22,10 @@ public class Main extends AppCompatActivity {
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
-        fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
-            }
-        });
+        user = ((User)getApplication()); //Figure out why this works.
+        mProgress = (ProgressBar) findViewById(R.id.exp_bar);
+        mProgress.setMax(user.get_max_exp());
+
     }
 
     @Override
@@ -59,5 +58,50 @@ public class Main extends AppCompatActivity {
     public void btnHeartrate_Click (View v) {
         Intent intent = new Intent(this, Heartrate.class);
         startActivity(intent);
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) //USED ONLY setResult is used
+    {
+        if(resultCode == RESULT_OK)  //Did the intent actually go through?
+        {
+            user = data.getParcelableExtra("updated_user"); //Update the user data.
+        }
+    }
+
+    public void Gain1Exp(View view) {
+        user.gain_exp(1);
+        mProgress.incrementProgressBy(1);
+
+        Snackbar snackbar = Snackbar.make(view, "You got 1 EXP!" + user.get_curr_exp(), Snackbar.LENGTH_LONG);
+        snackbar.setAction("Action", null).show();
+
+        if(mProgress.getProgress() >= mProgress.getMax())
+        {
+            LevelUp(view);
+        }
+    }
+
+    public void Gain50Exp(View view) {
+        user.gain_exp(50);
+        mProgress.incrementProgressBy(50);
+
+        Snackbar snackbar = Snackbar.make(view, "You got 50 EXP!" + user.get_curr_exp(), Snackbar.LENGTH_LONG);
+        snackbar.setAction("Action", null).show();
+
+        if(mProgress.getProgress() >= mProgress.getMax())
+        {
+            LevelUp(view);
+        }
+    }
+
+    public void LevelUp(View view)
+    {
+        //user.level_up(view);
+
+        mProgress.setProgress(user.get_curr_exp());
+        mProgress.setMax(user.get_max_exp()); //TO DO: Set scaling of max EXP
+
+        Intent intent = new Intent(this, Test_Activity.class);
+        intent.putExtra("user", user);
+        startActivityForResult(intent, 42);
     }
 }
