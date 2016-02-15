@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -52,18 +53,25 @@ public class Main extends AppCompatActivity {
 
     public void btnLocationA_onClick(View v) {
         Intent intent = new Intent(this, Pedometer.class);
-        startActivity(intent);
+        intent.putExtra("user", user);
+        startActivityForResult(intent, 420);
     }
 
     public void btnHeartrate_Click (View v) {
         Intent intent = new Intent(this, Heartrate.class);
         startActivity(intent);
+    }
+
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) //USED ONLY setResult is used
     {
         if(resultCode == RESULT_OK)  //Did the intent actually go through?
         {
             user = data.getParcelableExtra("updated_user"); //Update the user data.
+            Log.i("Main", "Updated User " + Float.toString(user.get_iSteps()));
+        }
+        else if (resultCode == RESULT_CANCELED) {
+            Log.i("Main", "Activity result failed");
         }
     }
 

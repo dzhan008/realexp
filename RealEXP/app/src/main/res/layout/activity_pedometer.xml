@@ -34,4 +34,5 @@
         android:padding="5dp"
         android:layout_above="@+id/txtStepsS"
         android:layout_centerHorizontal="true" />
+
 </RelativeLayout>

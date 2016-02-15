@@ -1,11 +1,14 @@
 package realexp.realexp;
 
 import android.content.Context;
+import android.content.Intent;
 import android.content.res.Configuration;
 import android.hardware.Sensor;
 import android.hardware.SensorEvent;
 import android.hardware.SensorEventListener;
 import android.hardware.SensorManager;
+import android.media.audiofx.BassBoost;
+import android.provider.Settings;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -17,7 +20,9 @@ import android.widget.TextView;
 
 public class Pedometer extends AppCompatActivity implements SensorEventListener {
 
-    float iSteps = -1;
+    Intent i;
+    User user;
+    float iSteps;
     float steps;
     TextView txtSteps;
     SensorManager sensorM;
@@ -45,9 +50,16 @@ public class Pedometer extends AppCompatActivity implements SensorEventListener 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_location);
+        setContentView(R.layout.activity_pedometer);
 
-        steps = 0;
+        i = getIntent();
+        user = i.getParcelableExtra("user");
+
+        steps = user.get_steps();
+        iSteps = user.get_iSteps();
+        Log.i("PedoOnCreate steps", Float.toString(user.get_steps()));
+        Log.i("PedoOnCreate iSteps", Float.toString(user.get_steps()));
+
         txtSteps = (TextView) findViewById(R.id.txtSteps);
         sensorM = (SensorManager) getSystemService(Context.SENSOR_SERVICE);
         sensorSteps = sensorM.getDefaultSensor(Sensor.TYPE_STEP_COUNTER);
@@ -74,6 +86,7 @@ public class Pedometer extends AppCompatActivity implements SensorEventListener 
 
         return super.onOptionsItemSelected(item);
     }
+    
 
     @Override
     public void onConfigurationChanged(Configuration newConfig) {
@@ -82,11 +95,23 @@ public class Pedometer extends AppCompatActivity implements SensorEventListener 
     }
 
     @Override
+    public void finish() {
+        user.set_steps(steps);
+        user.set_iSteps(iSteps);
+        Log.i("temp", Float.toString(user.get_iSteps()) + " " + Float.toString(user.get_steps()));
+        Log.i("Pedometer - On Destroy", Float.toString(steps));
+
+        Intent resultIntent = new Intent();
+        resultIntent.putExtra("updated_user", user);
+        setResult(Main.RESULT_OK, resultIntent);
+        super.finish();
+    }
+
+    @Override
     protected void onSaveInstanceState(Bundle outState) {
         super.onSaveInstanceState(outState);
         outState.putFloat("steps", steps);
         outState.putFloat("iSteps", iSteps);
-
     }
 
     @Override
