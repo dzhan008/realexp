@@ -71,7 +71,7 @@
         android:id="@+id/btnLocationA"
         android:layout_below="@+id/txtCal"
         android:layout_alignParentStart="true"
-        android:onClick="btnLocationA_onClick" />
+        android:onClick="btnPedometer_onClick" />
 
     <Button
         android:layout_width="wrap_content"
