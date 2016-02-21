@@ -17,6 +17,7 @@ public class createToDo_Activity extends FragmentActivity implements View.OnClic
     Button bTime;
 
     EditText tdtitle, tddescription, tdtype;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -67,6 +68,9 @@ public class createToDo_Activity extends FragmentActivity implements View.OnClic
         }
     }
 
+    /*Checks if the user put in a Title or Deadline. These two things must be required to make a
+    quest
+    Return true if it was empty. False if filled in correctly*/
     private boolean checkEmptyInput()
     {
         EditText titleEditText = (EditText) findViewById(R.id.add_title);
@@ -102,14 +106,19 @@ public class createToDo_Activity extends FragmentActivity implements View.OnClic
         private int priority;
          */
 
+
+        //Store information to create ToDo object
         String Title = tdtitle.getText().toString();
         String Description = tddescription.getText().toString();
         String Type = tdtype.getText().toString();
 
 
         //Toast.makeText(this, Title, Toast.LENGTH_SHORT).show();
+
+        //Create ToDo object to pass back to the calling activity
         ToDo quest = new ToDo(1, Title,Description, Type, 1, 31, 2016, 0, 0, 3, 100, 200, 1);
 
+        //Create an intent and add the object to the intent
         Intent intent = new Intent(this, CheckList_Activity.class);
         intent.putExtra("quest", quest);
         setResult(RESULT_OK, intent);
