@@ -7,7 +7,6 @@ import android.hardware.Sensor;
 import android.hardware.SensorEvent;
 import android.hardware.SensorEventListener;
 import android.hardware.SensorManager;
-import android.media.audiofx.BassBoost;
 import android.provider.Settings;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -24,6 +23,9 @@ public class Pedometer extends AppCompatActivity implements SensorEventListener 
     User user;
     float iSteps;
     float steps;
+    int weight = 180; //pounds
+    int height = 66; //inches
+    float speed = 1; // steps per second
     TextView txtSteps;
     SensorManager sensorM;
     Sensor sensorSteps;
@@ -57,8 +59,6 @@ public class Pedometer extends AppCompatActivity implements SensorEventListener 
 
         steps = user.get_steps();
         iSteps = user.get_iSteps();
-        Log.i("PedoOnCreate steps", Float.toString(user.get_steps()));
-        Log.i("PedoOnCreate iSteps", Float.toString(user.get_steps()));
 
         txtSteps = (TextView) findViewById(R.id.txtSteps);
         sensorM = (SensorManager) getSystemService(Context.SENSOR_SERVICE);
@@ -86,7 +86,7 @@ public class Pedometer extends AppCompatActivity implements SensorEventListener 
 
         return super.onOptionsItemSelected(item);
     }
-    
+
 
     @Override
     public void onConfigurationChanged(Configuration newConfig) {
@@ -98,8 +98,6 @@ public class Pedometer extends AppCompatActivity implements SensorEventListener 
     public void finish() {
         user.set_steps(steps);
         user.set_iSteps(iSteps);
-        Log.i("temp", Float.toString(user.get_iSteps()) + " " + Float.toString(user.get_steps()));
-        Log.i("Pedometer - On Destroy", Float.toString(steps));
 
         Intent resultIntent = new Intent();
         resultIntent.putExtra("updated_user", user);

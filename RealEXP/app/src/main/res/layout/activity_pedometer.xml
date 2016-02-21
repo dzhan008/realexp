@@ -20,7 +20,7 @@
         android:padding="5dp"
         android:singleLine="true"
         android:textStyle="bold"
-        android:layout_centerVertical="true"
+        android:layout_below="@+id/txtSteps"
         android:layout_centerHorizontal="true" />
 
     <TextView
@@ -32,7 +32,19 @@
         android:textColor="@android:color/white"
         android:textSize="80sp"
         android:padding="5dp"
-        android:layout_above="@+id/txtStepsS"
-        android:layout_centerHorizontal="true" />
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="41dp" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceSmall"
+        android:text="0 Calories burned"
+        android:id="@+id/txtCal"
+        android:layout_centerVertical="true"
+        android:layout_centerHorizontal="true"
+        android:textColor="@android:color/white"
+        android:textSize="24sp" />
 
 </RelativeLayout>
