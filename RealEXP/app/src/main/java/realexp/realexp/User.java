@@ -26,7 +26,7 @@ public class User extends Application implements Parcelable {
     //static Context context = getApplicationContext();
 
     public User()
-    {
+    { //Default Values
         level = 1;
         curr_exp = 0;
         max_exp = 100;
