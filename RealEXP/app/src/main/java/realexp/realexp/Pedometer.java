@@ -96,22 +96,6 @@ public class Pedometer extends AppCompatActivity implements SensorEventListener 
         iSteps = savedInstanceState.getFloat("iSteps");
     }
 
-    /*public void btnLocation_Click(View v) {
-        try {
-            android.location.Location l = locationM.getLastKnownLocation(locationM.GPS_PROVIDER);
-            double lat = l.getLatitude();
-            double lon = l.getLongitude();
-            TextView latitude = (TextView) findViewById(R.id.txtLatiude);
-            TextView longitude = (TextView) findViewById(R.id.txtLongitude);
-            latitude.setText(Double.toString(lat));
-            longitude.setText(Double.toString(lon));
-
-
-        } catch (SecurityException e) {
-            Log.e("PERMISSION", "ACCESS_FINE_LOCATION");
-        }
-    }
-    */
 
 
 
