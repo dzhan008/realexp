@@ -16,18 +16,18 @@
     <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Location Activity"
-        android:id="@+id/btnLocationA"
+        android:text="Pedometer"
+        android:id="@+id/btnPedometer"
         android:layout_below="@+id/txtCal"
         android:layout_alignParentStart="true"
-        android:onClick="btnLocationA_onClick" />
+        android:onClick="btnPedometer_Click" />
 
     <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="New Button"
         android:id="@+id/button"
-        android:layout_below="@+id/btnLocationA"
+        android:layout_below="@+id/btnPedometer"
         android:layout_alignParentStart="true"
         android:onClick="btnHeartrate_Click" />
 
