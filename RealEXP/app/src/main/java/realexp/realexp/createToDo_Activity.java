@@ -60,8 +60,9 @@ public class createToDo_Activity extends FragmentActivity implements View.OnClic
                 }
                 break;
             case R.id.button_cancel:
+                Intent i = new Intent(this, CheckList_Activity.class);
+                setResult(RESULT_CANCELED, i);
                 finish();
-                startActivity(new Intent(this, CheckList_Activity.class));
                 break;
         }
     }
@@ -106,6 +107,7 @@ public class createToDo_Activity extends FragmentActivity implements View.OnClic
         String Type = tdtype.getText().toString();
 
 
+        //Toast.makeText(this, Title, Toast.LENGTH_SHORT).show();
         ToDo quest = new ToDo(1, Title,Description, Type, 1, 31, 2016, 0, 0, 3, 100, 200, 1);
 
         Intent intent = new Intent(this, CheckList_Activity.class);

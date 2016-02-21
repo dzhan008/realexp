@@ -4,7 +4,9 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ImageButton;
+import android.widget.ListView;
 import android.widget.Toast;
 
 import java.util.ArrayList;
@@ -12,9 +14,12 @@ import java.util.ArrayList;
 public class CheckList_Activity extends ActionBarActivity implements View.OnClickListener {
 
     ImageButton addToDo;
-    CheckList myCheckList;
     private ArrayList<ToDo> whattheheck = new ArrayList<>();
     public static final String STATE_TODO = "state_quest";
+    private ArrayList listDate;
+    private ListView test;
+    private CheckList mainList;
+    //CheckList mainList;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -23,7 +28,22 @@ public class CheckList_Activity extends ActionBarActivity implements View.OnClic
 
         addToDo = (ImageButton) findViewById(R.id.addToDoItem);
         addToDo.setOnClickListener(this);
+        ToDo quest = new ToDo(1, "Quynh","Nguyen", "Hard", 1, 31, 2016, 0, 0, 3, 100, 200, 1);
+        ToDo quest1 = new ToDo(1, "Q","N", "Hard", 1, 21, 2016, 0, 0, 3, 100, 200, 1);
+        whattheheck.add(quest);
+        whattheheck.add(quest1);
 
+        test = (ListView) findViewById(R.id.listView);
+        mainList = new CheckList(this, whattheheck);
+        test.setAdapter(mainList);
+        test.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                Object o = test.getItemAtPosition(position);
+                ToDo selectedQuest = (ToDo) o;
+                //Toast.makeText(this, "Selected: " + selectedQuest, Toast.LENGTH_SHORT).show();
+            }
+        });
 
         if (whattheheck.isEmpty()) {
             Toast.makeText(this, "ArrayList is empty", Toast.LENGTH_SHORT).show();
@@ -35,27 +55,26 @@ public class CheckList_Activity extends ActionBarActivity implements View.OnClic
 
     }
 
-
     protected void onRestart()
     {
         super.onRestart();
 
         if (whattheheck.isEmpty()) {
-            Toast.makeText(this, "ArrayList is empty on RESTAR", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, "ArrayList is empty on RESTART", Toast.LENGTH_SHORT).show();
         }
-//        setContentView(R.layout.checklist);
-//
-//        Toast.makeText(this, "You got Mail!", Toast.LENGTH_SHORT).show();
-//        Intent i = getIntent();
-//        ToDo testing = (ToDo) i.getParcelableExtra("com.package.ToDo");
-//        whattheheck.add(testing);
-//        Toast.makeText(this, testing.get_title(), Toast.LENGTH_SHORT).show();
-//        if (whattheheck.isEmpty())
-//        {
-//            Toast.makeText(this, "IT EMPTY MAN", Toast.LENGTH_SHORT).show();
-//        }
-//        addToDo = (ImageButton) findViewById(R.id.addToDoItem);
-//        addToDo.setOnClickListener(this);
+        else  Toast.makeText(this, "ArrayList is not empty on RESTART", Toast.LENGTH_SHORT).show();
+
+
+
+        test.setAdapter(mainList);
+        test.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                Object o = test.getItemAtPosition(position);
+                ToDo selectedQuest = (ToDo) o;
+                //Toast.makeText(this, "Selected: " + selectedQuest, Toast.LENGTH_SHORT).show();
+            }
+        });
     }
 
     protected void onStop()
@@ -79,8 +98,10 @@ public class CheckList_Activity extends ActionBarActivity implements View.OnClic
                 i = getIntent();
 
                 task = i.getParcelableExtra("quest");
+                mainList.addToDo(task);
 
-                whattheheck.add(task);
+                //ToDo quest = new ToDo(1, "Quynh","Nguyen", "Hard", 1, 31, 2016, 0, 0, 3, 100, 200, 1);
+                //mainList.addToDo(quest);
 
             }
             if (resultCode == RESULT_CANCELED)
@@ -101,4 +122,5 @@ public class CheckList_Activity extends ActionBarActivity implements View.OnClic
 
         }
     }
+
 }

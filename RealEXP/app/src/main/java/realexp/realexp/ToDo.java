@@ -94,6 +94,15 @@ public class ToDo implements Parcelable {
     {
         return title;
     }
+    public String get_description()
+    {
+        return description;
+    }
+    public String get_date()
+    {
+        String deadline = month + "/" + date + "/" + year;
+        return deadline;
+    }
 }
 /*
     //maybe make it so that later on, users can just say a time period and we set the date for them
