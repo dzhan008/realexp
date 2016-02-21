@@ -10,11 +10,14 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ProgressBar;
+import android.widget.TextView;
 
 public class Main extends AppCompatActivity {
 
     User user;
     private ProgressBar mProgress;
+
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -24,10 +27,35 @@ public class Main extends AppCompatActivity {
         setSupportActionBar(toolbar);
 
         user = ((User)getApplication()); //Figure out why this works.
+
+        //Sets up exp bar.
         mProgress = (ProgressBar) findViewById(R.id.exp_bar);
+        mProgress.setProgress(user.get_curr_exp());
         mProgress.setMax(user.get_max_exp());
 
+        //Sets up text to update level and exp.
+        TextView user_name = (TextView) findViewById(R.id.user_name);
+        TextView user_level = (TextView) findViewById(R.id.user_level);
+        TextView user_exp = (TextView) findViewById(R.id.user_exp);
+
+        user_level.setText("Level: " + user.get_level());
+        user_exp.setText("Experience: " + user.get_curr_exp() + "/" + user.get_max_exp());
     }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+
+        //Sets up text to update level and exp.
+        TextView user_name = (TextView) findViewById(R.id.user_name);
+        TextView user_level = (TextView) findViewById(R.id.user_level);
+        TextView user_exp = (TextView) findViewById(R.id.user_exp);
+
+        user_level.setText("Level: " + user.get_level());
+        user_exp.setText("Experience: " + user.get_curr_exp() + "/" + user.get_max_exp());
+
+    }
+
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -79,7 +107,7 @@ public class Main extends AppCompatActivity {
         user.gain_exp(1);
         mProgress.incrementProgressBy(1);
 
-        Snackbar snackbar = Snackbar.make(view, "You got 1 EXP!" + user.get_curr_exp(), Snackbar.LENGTH_LONG);
+        Snackbar snackbar = Snackbar.make(view, "You got 1 EXP!", Snackbar.LENGTH_LONG);
         snackbar.setAction("Action", null).show();
 
         if(mProgress.getProgress() >= mProgress.getMax())
@@ -92,7 +120,7 @@ public class Main extends AppCompatActivity {
         user.gain_exp(50);
         mProgress.incrementProgressBy(50);
 
-        Snackbar snackbar = Snackbar.make(view, "You got 50 EXP!" + user.get_curr_exp(), Snackbar.LENGTH_LONG);
+        Snackbar snackbar = Snackbar.make(view, "You got 50 EXP!", Snackbar.LENGTH_LONG);
         snackbar.setAction("Action", null).show();
 
         if(mProgress.getProgress() >= mProgress.getMax())
@@ -103,13 +131,11 @@ public class Main extends AppCompatActivity {
 
     public void LevelUp(View view)
     {
-        //user.level_up(view);
-
         mProgress.setProgress(user.get_curr_exp());
         mProgress.setMax(user.get_max_exp()); //TO DO: Set scaling of max EXP
 
-        Intent intent = new Intent(this, Test_Activity.class);
+        /*Intent intent = new Intent(this, Test_Activity.class);
         intent.putExtra("user", user);
-        startActivityForResult(intent, 42);
+        startActivityForResult(intent, 42);*/
     }
 }

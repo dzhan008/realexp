@@ -8,6 +8,8 @@ import android.os.Parcelable;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
+import android.widget.Toast;
+
 import java.io.Serializable;
 
 import java.io.Serializable;
@@ -73,6 +75,8 @@ public class User extends Application implements Parcelable {
 
     };
 
+
+    /**Exp Functions**/
     public int get_max_exp()
     {
         return this.max_exp;
@@ -95,8 +99,14 @@ public class User extends Application implements Parcelable {
         this.curr_exp = this.curr_exp + amount;
         if(curr_exp >= max_exp)
         {
-            //LevelUp();
+            level_up();
         }
+    }
+
+    /**Level Functions**/
+    public int get_level()
+    {
+        return level;
     }
 
     void set_level(int lvl)
@@ -104,7 +114,7 @@ public class User extends Application implements Parcelable {
         level = lvl;
     }
 
-    void level_up(View view)
+    void level_up()
     {
         level = level + 1;
         if(curr_exp > max_exp)
@@ -117,10 +127,11 @@ public class User extends Application implements Parcelable {
         }
         max_exp += 10; //TO DO: Set scaling of max EXP
 
-        Snackbar snackbar = Snackbar.make(view, "Level up! You are now level " + level + ".", Snackbar.LENGTH_LONG);
-        snackbar.setAction("Action", null).show();
+        Toast message = Toast.makeText(getApplicationContext(), "Level up! You are now level " + level + ".", Toast.LENGTH_LONG);
+        message.show();
     }
 
+    /**Step Functions**/
     void set_steps (float s) {
         steps = s;
     }

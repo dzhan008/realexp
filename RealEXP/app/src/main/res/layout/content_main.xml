@@ -13,29 +13,13 @@
     tools:context="realexp.realexp.Main"
     tools:showIn="@layout/activity_main">
 
-    <Button
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Location Activity"
-        android:id="@+id/btnLocationA"
-        android:layout_below="@+id/txtCal"
-        android:layout_alignParentStart="true"
-        android:onClick="btnLocationA_onClick" />
-
-    <Button
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="New Button"
-        android:id="@+id/button"
-        android:layout_below="@+id/btnLocationA"
-        android:layout_alignParentStart="true"
-        android:onClick="btnHeartrate_Click" />
-
-   <TextView
+    <TextView
+        android:id="@+id/user_name"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Username: Admin" />
     <TextView
+        android:id="@+id/user_level"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Level: " />
@@ -66,9 +50,10 @@
     </LinearLayout>
 
     <TextView
+        android:id="@+id/user_exp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Experience Bar" />
+        android:text="Experience: " />
 
     <ProgressBar
         android:id="@+id/exp_bar"
@@ -78,4 +63,30 @@
         android:maxWidth="50dp"
         style="@android:style/Widget.ProgressBar.Horizontal"
         android:layout_marginRight="5dp"/>
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Location Activity"
+        android:id="@+id/btnLocationA"
+        android:layout_below="@+id/txtCal"
+        android:layout_alignParentStart="true"
+        android:onClick="btnLocationA_onClick" />
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Heart Rate"
+        android:id="@+id/button"
+        android:layout_below="@+id/btnLocationA"
+        android:layout_alignParentStart="true"
+        android:onClick="btnHeartrate_Click" />
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Fog of War Test"
+        android:id="@+id/buttonfog"
+        android:layout_below="@+id/btnLocationA"
+        android:layout_alignParentStart="true"
+        android:onClick="btnfog_Click" />
 </LinearLayout>
