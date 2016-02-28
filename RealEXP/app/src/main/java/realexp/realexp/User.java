@@ -24,6 +24,7 @@ public class User extends Application implements Parcelable {
     private int max_exp = 100;
     private float steps = 0;
     private float iSteps = -1;
+    private float speed;
 
     //static Context context = getApplicationContext();
 
@@ -34,6 +35,7 @@ public class User extends Application implements Parcelable {
         max_exp = 100;
         steps = 0;
         iSteps = -1;
+        speed = 0;
     }
 
     public User(Parcel p)
@@ -43,6 +45,7 @@ public class User extends Application implements Parcelable {
         max_exp = p.readInt();
         steps = p.readFloat();
         iSteps = p.readFloat();
+        speed = p.readFloat();
     }
 
     public int describeContents()
@@ -57,6 +60,7 @@ public class User extends Application implements Parcelable {
         dest.writeInt(max_exp);
         dest.writeFloat(steps);
         dest.writeFloat(iSteps);
+        dest.writeFloat(speed);
     }
 
     public static final Parcelable.Creator<User> CREATOR = new  Parcelable.Creator<User>()
@@ -145,6 +149,14 @@ public class User extends Application implements Parcelable {
 
     float get_iSteps() {
         return iSteps;
+    }
+
+    void set_speed (float s) {
+        speed = s;
+    }
+
+    float get_speed () {
+        return speed;
     }
 
 }
