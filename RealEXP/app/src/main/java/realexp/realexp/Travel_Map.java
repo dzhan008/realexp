@@ -1,5 +1,6 @@
 package realexp.realexp;
 
+import android.graphics.Color;
 import android.support.v4.app.FragmentActivity;
 import android.os.Bundle;
 
@@ -9,6 +10,8 @@ import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
+import com.google.android.gms.maps.model.Polyline;
+import com.google.android.gms.maps.model.PolylineOptions;
 
 public class Travel_Map extends FragmentActivity implements OnMapReadyCallback {
 
@@ -42,5 +45,11 @@ public class Travel_Map extends FragmentActivity implements OnMapReadyCallback {
         LatLng sydney = new LatLng(-34, 151);
         mMap.addMarker(new MarkerOptions().position(sydney).title("Marker in Sydney"));
         mMap.moveCamera(CameraUpdateFactory.newLatLng(sydney));
+        Polyline line = mMap.addPolyline(new PolylineOptions()
+                .add(new LatLng(-37.81319, 144.96298), new LatLng(-31.95285, 115.85734))
+                .width(25)
+                .color(0x7F667175)
+                .geodesic(true));
+        line.setVisible(true);
     }
 }
