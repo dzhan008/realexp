@@ -90,6 +90,12 @@ public class Main extends AppCompatActivity {
         startActivity(intent);
     }
 
+    public void btnfog_Click (View v)
+    {
+        Intent i = new Intent(this, Travel_Map.class);
+        startActivity(i);
+    }
+
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) //USED ONLY setResult is used
     {
