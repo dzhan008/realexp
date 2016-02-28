@@ -15,6 +15,7 @@ import com.google.android.gms.maps.model.MarkerOptions;
 public class Map extends FragmentActivity implements OnMapReadyCallback {
 
     protected GoogleMap map;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -29,15 +30,15 @@ public class Map extends FragmentActivity implements OnMapReadyCallback {
 
         LatLng UCR = new LatLng(33.975, -117.329);
         map.addMarker(new MarkerOptions().position(UCR).title("UCR"));
-        moveToCurrentLocation(UCR);
+        //moveToCurrentLocation(UCR);
     }
-    private void moveToCurrentLocation(LatLng currentLocation)
-    {
-        map.moveCamera(CameraUpdateFactory.newLatLngZoom(currentLocation, 5.0f));
-        //map.animateCamera(CameraUpdateFactory.zoomIn());
-        //map.animateCamera(CameraUpdateFactory.zoomTo(15), 2000, null);
-        map.setOnCameraChangeListener(null);
-    }
+//    private void moveToCurrentLocation(LatLng currentLocation)
+//    {
+//        map.moveCamera(CameraUpdateFactory.newLatLngZoom(currentLocation, 5.0f));
+//        map.animateCamera(CameraUpdateFactory.zoomIn());
+//        map.animateCamera(CameraUpdateFactory.zoomTo(15), 2000, null);
+//        map.setOnCameraChangeListener(null);
+//    }
 
     public void btnLocationA_onClick(View v) {
         Intent intent = new Intent(this, Pedometer.class);
