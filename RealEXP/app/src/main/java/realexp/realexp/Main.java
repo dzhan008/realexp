@@ -79,7 +79,7 @@ public class Main extends AppCompatActivity {
         return super.onOptionsItemSelected(item);
     }
 
-    public void btnLocationA_onClick(View v) {
+    public void btnPedometer_Click(View v) {
         Intent intent = new Intent(this, Pedometer.class);
         intent.putExtra("user", user);
         startActivityForResult(intent, 420);

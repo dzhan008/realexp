@@ -67,11 +67,11 @@
     <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Location Activity"
+        android:text="Pedometer"
         android:id="@+id/btnLocationA"
         android:layout_below="@+id/txtCal"
         android:layout_alignParentStart="true"
-        android:onClick="btnLocationA_onClick" />
+        android:onClick="btnPedometer_Click" />
 
     <Button
         android:layout_width="wrap_content"
