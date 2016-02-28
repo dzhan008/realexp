@@ -17,6 +17,8 @@ public class createToDo_Activity extends FragmentActivity implements View.OnClic
     Button bTime;
 
     EditText tdtitle, tddescription, tdtype;
+    TextView tddate, tdtime;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -113,16 +115,27 @@ public class createToDo_Activity extends FragmentActivity implements View.OnClic
         String Type = tdtype.getText().toString();
 
 
+        tddate = (TextView) findViewById(R.id.date_text);
+        tdtime = (TextView) findViewById(R.id.time_text);
+        String Deadline = tddate.getText().toString();
+        String[] splitStringArray = Deadline.split("/");
+
+        Integer month = Integer.valueOf(splitStringArray[0]);
+        Integer date = Integer.valueOf(splitStringArray[1]);
+        Integer year  = Integer.valueOf(splitStringArray[2]);
+
+
         //Toast.makeText(this, Title, Toast.LENGTH_SHORT).show();
 
         //Create ToDo object to pass back to the calling activity
-        ToDo quest = new ToDo(1, Title,Description, Type, 1, 31, 2016, 0, 0, 3, 100, 200, 1);
+        ToDo quest = new ToDo(1, Title,Description, Type, month, date, year, 0, 0, 3, 100, 200, 1);
 
         //Create an intent and add the object to the intent
         Intent intent = new Intent(this, CheckList_Activity.class);
         intent.putExtra("quest", quest);
         setResult(RESULT_OK, intent);
         finish();
+
     }
 }
 

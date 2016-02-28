@@ -14,7 +14,7 @@ import java.util.ArrayList;
 public class CheckList_Activity extends ActionBarActivity implements View.OnClickListener {
 
     ImageButton addToDo;
-    private ArrayList<ToDo> whattheheck = new ArrayList<>();
+    private ArrayList<ToDo> initList = new ArrayList<>();
     //public static final String STATE_TODO = "state_quest";
     private ListView test;
     private CheckList mainList;
@@ -29,14 +29,10 @@ public class CheckList_Activity extends ActionBarActivity implements View.OnClic
         addToDo.setOnClickListener(this);
 
         /*Added some smaple quests in the beginning*/
-        ToDo quest = new ToDo(1, "Do Math Hw","Ugh", "Hard", 1, 31, 2016, 0, 0, 3, 100, 200, 1);
-        ToDo quest1 = new ToDo(1, "Cook some food","Agh", "Hard", 1, 21, 2016, 0, 0, 3, 100, 200, 1);
-        whattheheck.add(quest);
-        whattheheck.add(quest1);
 
         /*Creating the List View*/
         test = (ListView) findViewById(R.id.listView);
-        mainList = new CheckList(this, whattheheck);
+        mainList = new CheckList(this, initList);
         test.setAdapter(mainList);
         test.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
@@ -89,11 +85,10 @@ public class CheckList_Activity extends ActionBarActivity implements View.OnClic
             if (resultCode == RESULT_OK) //Did the intent go through?
             {
                 Toast.makeText(this, "onActivityResult", Toast.LENGTH_SHORT).show();
-                Intent i;
-                i = getIntent(); //Gets the intent from previous activity
+                //Intent i = getIntent(); //Gets the intent from previous activity
 
                 //Get information from the createToDo Activity and store in a ToDo
-                ToDo task = i.getParcelableExtra("quest");
+                ToDo task = data.getExtras().getParcelable("quest");
                 //Add the ToDo to CheckList's Array of ToDos. Crashes here.
                 mainList.addToDo(task);
             }
@@ -112,7 +107,8 @@ public class CheckList_Activity extends ActionBarActivity implements View.OnClic
         switch(v.getId())
         {
             case R.id.addToDoItem:
-                startActivityForResult(new Intent(this, createToDo_Activity.class), 10);
+                Intent i = new Intent(this, createToDo_Activity.class);
+                startActivityForResult(i, 10);
                 break;
 
         }

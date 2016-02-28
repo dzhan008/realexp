@@ -30,8 +30,10 @@ public class DatePickerFragment extends DialogFragment implements DatePickerDial
         //Toast.makeText(getActivity(), monthsArray[monthOfYear] + " " + String.valueOf(dayOfMonth) +
         //" " + String.valueOf(year), Toast.LENGTH_SHORT).show();
         TextView activityText = (TextView)getActivity().findViewById(R.id.date_text);
-        activityText.setText(monthsArray[monthOfYear] + " " + String.valueOf(dayOfMonth) +
-                ", " + String.valueOf(year));
+        //activityText.setText(monthsArray[monthOfYear] + " " + String.valueOf(dayOfMonth) +
+         //       " " + String.valueOf(year));
+        activityText.setText(monthOfYear + "/" + String.valueOf(dayOfMonth) +
+               "/" + String.valueOf(year));
 
     }
 

@@ -19,21 +19,6 @@ public class ToDo implements Parcelable {
     private int priority;
 
 
-    protected ToDo(Parcel in) {
-        ID = in.readInt();
-        title = in.readString();
-        description = in.readString();
-        type = in.readString();
-        month = in.readInt();
-        date = in.readInt();
-        year = in.readInt();
-        hourTime = in.readInt();
-        minuteTime = in.readInt();
-        difficulty = in.readInt();
-        experience = in.readInt();
-        gold = in.readInt();
-        priority = in.readInt();
-    }
 
     protected ToDo(int id, String title, String description, String type, int month, int date,
                    int year, int hourTime, int minuteTime, int difficulty, int experience, int gold,
@@ -76,7 +61,22 @@ public class ToDo implements Parcelable {
         dest.writeInt(gold);
         dest.writeInt(priority);
     }
-
+    //De Parcel object
+    protected ToDo(Parcel in) {
+        ID = in.readInt();
+        title = in.readString();
+        description = in.readString();
+        type = in.readString();
+        month = in.readInt();
+        date = in.readInt();
+        year = in.readInt();
+        hourTime = in.readInt();
+        minuteTime = in.readInt();
+        difficulty = in.readInt();
+        experience = in.readInt();
+        gold = in.readInt();
+        priority = in.readInt();
+    }
     @SuppressWarnings("unused")
     public static final Parcelable.Creator<ToDo> CREATOR = new Parcelable.Creator<ToDo>() {
         @Override
