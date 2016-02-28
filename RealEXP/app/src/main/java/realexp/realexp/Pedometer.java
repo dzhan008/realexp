@@ -2,15 +2,12 @@ package realexp.realexp;
 
 import android.content.Context;
 import android.content.Intent;
-import android.content.res.Configuration;
 import android.hardware.Sensor;
 import android.hardware.SensorEvent;
 import android.hardware.SensorEventListener;
 import android.hardware.SensorManager;
-import android.provider.Settings;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.text.Layout;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -151,13 +148,6 @@ public class Pedometer extends AppCompatActivity implements SensorEventListener 
         return super.onOptionsItemSelected(item);
     }
 
-
-    @Override
-    public void onConfigurationChanged(Configuration newConfig) {
-        super.onConfigurationChanged(newConfig);
-
-    }
-
     @Override
     public void finish() {
         user.set_steps(steps);
@@ -190,24 +180,6 @@ public class Pedometer extends AppCompatActivity implements SensorEventListener 
         speed = savedInstanceState.getFloat("speed");
 
     }
-
-    /*public void btnLocation_Click(View v) {
-        try {
-            android.location.Location l = locationM.getLastKnownLocation(locationM.GPS_PROVIDER);
-            double lat = l.getLatitude();
-            double lon = l.getLongitude();
-            TextView latitude = (TextView) findViewById(R.id.txtLatiude);
-            TextView longitude = (TextView) findViewById(R.id.txtLongitude);
-            latitude.setText(Double.toString(lat));
-            longitude.setText(Double.toString(lon));
-
-
-        } catch (SecurityException e) {
-            Log.e("PERMISSION", "ACCESS_FINE_LOCATION");
-        }
-    }
-    */
-
 
 
 
