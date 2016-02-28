@@ -116,7 +116,7 @@ public class Pedometer extends AppCompatActivity implements SensorEventListener 
         iSteps = user.get_iSteps();
         timeStep1 = 0;
         timeStep2 = 0;
-        speed = 0;
+        speed = user.get_speed();
         strideLength = height * .415f;
         strideLength *= .0328084; // centimeters to feet
 
@@ -162,6 +162,7 @@ public class Pedometer extends AppCompatActivity implements SensorEventListener 
     public void finish() {
         user.set_steps(steps);
         user.set_iSteps(iSteps);
+        user.set_speed(speed);
 
         Intent resultIntent = new Intent();
         resultIntent.putExtra("updated_user", user);

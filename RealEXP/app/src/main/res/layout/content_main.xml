@@ -67,7 +67,7 @@
     <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Location Activity"
+        android:text="Pedometer"
         android:id="@+id/btnLocationA"
         android:layout_below="@+id/txtCal"
         android:layout_alignParentStart="true"
@@ -86,7 +86,6 @@
         android:layout_height="wrap_content"
         android:text="Fog of War Test"
         android:id="@+id/buttonfog"
-        android:layout_below="@+id/btnLocationA"
         android:layout_alignParentStart="true"
         android:onClick="btnfog_Click" />
 </LinearLayout>
