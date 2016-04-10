@@ -18,7 +18,7 @@ import java.text.DecimalFormat;
 public class Pedometer extends AppCompatActivity implements SensorEventListener {
 
     Intent i;
-    User user;
+    realexp.realexp.User user;
     float iSteps;
     float steps;
     int weight = 180; // in pounds
