@@ -24,4 +24,11 @@
         android:textSize = "12sp"
         android:padding="15dp"/>
 
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/q_time"
+        android:textSize = "12sp"
+        android:padding="15dp"/>
+
 </LinearLayout>

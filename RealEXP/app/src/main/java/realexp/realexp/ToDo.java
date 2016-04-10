@@ -13,6 +13,7 @@ public class ToDo implements Parcelable {
     private int year;
     private int hourTime;
     private int minuteTime;
+    private String suffixTime;
     private int difficulty; //1 Easy, 2 Medium, 3 Hard
     private int experience;
     private int gold;
@@ -21,7 +22,7 @@ public class ToDo implements Parcelable {
 
 
     protected ToDo(int id, String title, String description, String type, int month, int date,
-                   int year, int hourTime, int minuteTime, int difficulty, int experience, int gold,
+                   int year, int hourTime, int minuteTime, String suffixTime, int difficulty, int experience, int gold,
                     int priority)
     {
         ID = id;
@@ -33,6 +34,7 @@ public class ToDo implements Parcelable {
         this.year = year;
         this.hourTime = hourTime;
         this.minuteTime = minuteTime;
+        this.suffixTime = suffixTime;
         this.difficulty = difficulty;
         this.experience = experience;
         this.gold = gold;
@@ -56,6 +58,7 @@ public class ToDo implements Parcelable {
         dest.writeInt(year);
         dest.writeInt(hourTime);
         dest.writeInt(minuteTime);
+        dest.writeString(suffixTime);
         dest.writeInt(difficulty);
         dest.writeInt(experience);
         dest.writeInt(gold);
@@ -72,6 +75,7 @@ public class ToDo implements Parcelable {
         year = in.readInt();
         hourTime = in.readInt();
         minuteTime = in.readInt();
+        suffixTime = in.readString();
         difficulty = in.readInt();
         experience = in.readInt();
         gold = in.readInt();
@@ -102,6 +106,11 @@ public class ToDo implements Parcelable {
     {
         String deadline = month + "/" + date + "/" + year;
         return deadline;
+    }
+    public String get_time()
+    {
+        String time = hourTime + ":" + minuteTime + " " + suffixTime;
+        return time;
     }
 }
 /*

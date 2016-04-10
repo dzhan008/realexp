@@ -58,6 +58,7 @@ public class CheckList extends BaseAdapter
             holder.questTitle = (TextView) convertView.findViewById(R.id.q_title);
             holder.questDescription = (TextView) convertView.findViewById(R.id.q_description);
             holder.questDate= (TextView) convertView.findViewById(R.id.q_date);
+            holder.questTime = (TextView) convertView.findViewById(R.id.q_time);
             convertView.setTag(holder);
         }
         else
@@ -67,6 +68,7 @@ public class CheckList extends BaseAdapter
         holder.questTitle.setText(myList.get(position).get_title());
         holder.questDescription.setText(myList.get(position).get_description());
         holder.questDate.setText(myList.get(position).get_date());
+        holder.questTime.setText(myList.get(position).get_time());
         return convertView;
     }
 
@@ -75,6 +77,7 @@ public class CheckList extends BaseAdapter
         TextView questTitle;
         TextView questDescription;
         TextView questDate;
+        TextView questTime;
     }
 
     public boolean isEmpty()

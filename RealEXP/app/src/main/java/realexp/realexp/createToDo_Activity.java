@@ -102,6 +102,7 @@ public class createToDo_Activity extends FragmentActivity implements View.OnClic
         private int year;
         private int hourTime;
         private int minuteTime;
+        private String suffxiTime;
         private int difficulty; //1 Easy, 2 Medium, 3 Hard
         private int experience;
         private int gold;
@@ -117,18 +118,30 @@ public class createToDo_Activity extends FragmentActivity implements View.OnClic
 
         tddate = (TextView) findViewById(R.id.date_text);
         tdtime = (TextView) findViewById(R.id.time_text);
+
+        //Get deadline date info
         String Deadline = tddate.getText().toString();
         String[] splitStringArray = Deadline.split("/");
-
         Integer month = Integer.valueOf(splitStringArray[0]);
         Integer date = Integer.valueOf(splitStringArray[1]);
         Integer year  = Integer.valueOf(splitStringArray[2]);
+
+        //Get deadline time info
+        String Time = tdtime.getText().toString();
+        String[] splitSuffix = Time.split(" ");
+        String suffixTime = String.valueOf(splitSuffix[1]);
+
+        String numTime = String.valueOf(splitSuffix[0]);
+        String [] splitHourandTime = numTime.split(":");
+        Integer hourTime  = Integer.parseInt(splitHourandTime[0]);
+        Integer minuteTime  = Integer.parseInt(splitHourandTime[1]);
 
 
         //Toast.makeText(this, Title, Toast.LENGTH_SHORT).show();
 
         //Create ToDo object to pass back to the calling activity
-        ToDo quest = new ToDo(1, Title,Description, Type, month, date, year, 0, 0, 3, 100, 200, 1);
+        ToDo quest = new ToDo(1, Title,Description, Type, month, date, year, hourTime, minuteTime,
+                suffixTime, 3, 100, 200, 1);
 
         //Create an intent and add the object to the intent
         Intent intent = new Intent(this, CheckList_Activity.class);
