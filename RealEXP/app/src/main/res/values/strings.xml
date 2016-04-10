@@ -15,8 +15,23 @@
     <string name="displayTime">00:00 AM/PM</string>
 
     <string-array name="Difficulty">
+        <item>Pick a Difficulty</item>
         <item>Easy</item>
         <item>Medium</item>
         <item>Hard</item>
+    </string-array>
+
+    <string-array name="Type">
+        <item>Pick a Type</item>
+        <item>Math</item>
+        <item>Cooking</item>
+        <item>English</item>
+        <item>Sports</item>
+        <item>Exercise</item>
+        <item>Club</item>
+        <item>Science</item>
+        <item>Social Studies</item>
+        <item>Event</item>
+        <item>Other</item>
     </string-array>
 </resources>

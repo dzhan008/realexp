@@ -19,11 +19,15 @@ public class createToDo_Activity extends FragmentActivity implements View.OnClic
     Button bDate;
     Button bTime;
 
-    EditText tdtitle, tddescription, tdtype;
+    EditText tdtitle, tddescription;
     TextView tddate, tdtime;
 
-    Spinner spinner;
+    Spinner spinnerDifficulty;
     String difficulty;
+
+    Spinner spinnerType;
+    String type;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -32,7 +36,6 @@ public class createToDo_Activity extends FragmentActivity implements View.OnClic
 
         tdtitle = (EditText) findViewById(R.id.add_title);
         tddescription = (EditText) findViewById(R.id.add_description);
-        tdtype = (EditText) findViewById(R.id.add_type);
 
         bSubmit = (Button) findViewById(R.id.button_submit);
         bSubmit.setOnClickListener(this);
@@ -46,18 +49,33 @@ public class createToDo_Activity extends FragmentActivity implements View.OnClic
         bTime = (Button) findViewById(R.id.button_time);
         bTime.setOnClickListener(this);
 
-        spinner = (Spinner) findViewById(R.id.spinner);
+        spinnerDifficulty = (Spinner) findViewById(R.id.spinnerDifficulty);
         ArrayAdapter difficultyAdapter = ArrayAdapter.createFromResource(this, R.array.Difficulty,
                 android.R.layout.simple_spinner_item);
-        spinner.setAdapter(difficultyAdapter);
-        spinner.setOnItemSelectedListener(this);
+        spinnerDifficulty.setAdapter(difficultyAdapter);
+        spinnerDifficulty.setOnItemSelectedListener(this);
+
+        spinnerType = (Spinner) findViewById(R.id.spinnerType);
+        ArrayAdapter typeAdapter = ArrayAdapter.createFromResource(this, R.array.Type,
+                android.R.layout.simple_spinner_item);
+        spinnerType.setAdapter(typeAdapter);
+        spinnerType.setOnItemSelectedListener(this);
+
     }
 
     public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l)
     {
-        TextView diffText = (TextView) view;
-        Toast.makeText(this, "You selected " + diffText.getText(), Toast.LENGTH_SHORT).show();
-        difficulty = String.valueOf(diffText.getText());
+        TextView spinnerText = (TextView) view;
+        Toast.makeText(this, "You selected " + spinnerText.getText(), Toast.LENGTH_SHORT).show();
+        switch (adapterView.getId())
+        {
+            case R.id.spinnerType:
+                type = String.valueOf(spinnerText.getText());
+                break;
+            case R.id.spinnerDifficulty:
+                difficulty = String.valueOf(spinnerText.getText());
+                break;
+        }
     }
 
     @Override
@@ -111,7 +129,16 @@ public class createToDo_Activity extends FragmentActivity implements View.OnClic
             Toast.makeText(this, "You did not enter a deadline date", Toast.LENGTH_SHORT).show();
             return true;
         }
-
+        if (type == "Pick a Type")
+        {
+            Toast.makeText(this, "You did not pick a type", Toast.LENGTH_SHORT).show();
+            return true;
+        }
+        if (difficulty == "Pick a Difficulty")
+        {
+            Toast.makeText(this, "You did not pick a difficulty", Toast.LENGTH_SHORT).show();
+            return true;
+        }
         return false;
     }
 
@@ -137,7 +164,6 @@ public class createToDo_Activity extends FragmentActivity implements View.OnClic
         //Store information to create ToDo object
         String Title = tdtitle.getText().toString();
         String Description = tddescription.getText().toString();
-        String Type = tdtype.getText().toString();
 
 
         tddate = (TextView) findViewById(R.id.date_text);
@@ -161,10 +187,9 @@ public class createToDo_Activity extends FragmentActivity implements View.OnClic
         Integer minuteTime  = Integer.parseInt(splitHourandTime[1]);
 
 
-        //Toast.makeText(this, Title, Toast.LENGTH_SHORT).show();
 
         //Create ToDo object to pass back to the calling activity
-        ToDo quest = new ToDo(1, Title,Description, Type, month, date, year, hourTime, minuteTime,
+        ToDo quest = new ToDo(1, Title,Description, type, month, date, year, hourTime, minuteTime,
                 suffixTime, difficulty, 100, 200, 1);
 
         //Create an intent and add the object to the intent

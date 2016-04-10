@@ -111,6 +111,7 @@ public class ToDo implements Parcelable {
     public String get_time()
     {
         String time = hourTime + ":" + minuteTime + " " + suffixTime;
+        if (suffixTime == "AM/PM") return " ";
         return time;
     }
     public String get_difficulty() {return difficulty;}

@@ -66,14 +66,22 @@ public class CheckList extends BaseAdapter
         {
             holder = (ViewHolder) convertView.getTag();
         }
+
+        /*Set the text views with information*/
+        //Set Title
         holder.questTitle.setText("Quest: " + myList.get(position).get_title());
-        holder.questDescription.setText("Description: " + myList.get(position).get_description());
+        //Set Description (if there is one)
+        if (myList.get(position).get_description() != "") {
+            holder.questDescription.setText("Description: " + myList.get(position).get_description());
+        }
+        //Set Type
         holder.questType.setText("Type: " + myList.get(position).get_type());
+        //Set Deadline (Date and Time)
         holder.questDeadline.setText("Deadline: " + myList.get(position).get_date() + " at " +
                 myList.get(position).get_time());
+        //Set Difficulty
         holder.questDifficulty.setText("Difficulty: " + myList.get(position).get_difficulty());
-        //holder.questDate.setText(myList.get(position).get_date());
-        //holder.questTime.setText(myList.get(position).get_time());
+
         return convertView;
     }
 

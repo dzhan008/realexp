@@ -5,7 +5,6 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -13,11 +12,11 @@
         android:layout_marginTop="20dp"
         android:layout_marginLeft="5dp"
         android:textSize="17sp" />
-
     <EditText
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:id="@+id/add_title"/>
+
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -25,11 +24,11 @@
         android:layout_marginTop="20dp"
         android:layout_marginLeft="5dp"
         android:textSize="17sp" />
-
-    <EditText
+    <Spinner
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:id="@+id/add_type"/>
+        android:id="@+id/spinnerType" />
+
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -37,11 +36,11 @@
         android:layout_marginTop="20dp"
         android:layout_marginLeft="5dp"
         android:textSize="17sp"/>
-
     <EditText
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:id="@+id/add_description" />
+
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -52,7 +51,7 @@
     <Spinner
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:id="@+id/spinner" />
+        android:id="@+id/spinnerDifficulty" />
 
     <Button
         android:layout_width="wrap_content"
@@ -76,6 +75,7 @@
         android:layout_height="wrap_content"
         android:id="@+id/time_text"
         android:text="@string/displayTime"/>
+
     <Button
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
