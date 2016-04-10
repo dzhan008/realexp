@@ -8,8 +8,15 @@
     <string name="tdtitle">Title</string>
     <string name="tddescription">Description</string>
     <string name="tdtype">Type</string>
+    <string name="tddifficulty">Difficulty</string>
     <string name="selectDate">Select Date</string>
     <string name="selectTime">Select Time</string>
     <string name="displayDate">Month Day Year</string>
     <string name="displayTime">00:00 AM/PM</string>
+
+    <string-array name="Difficulty">
+        <item>Easy</item>
+        <item>Medium</item>
+        <item>Hard</item>
+    </string-array>
 </resources>

@@ -14,21 +14,32 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:id="@+id/q_description"
+        android:id="@+id/q_type"
         android:textSize = "12sp"
         android:padding="15dp"/>
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:id="@+id/q_date"
+        android:id="@+id/q_description"
+        android:textSize = "12sp"
+        android:padding="15dp"/>
+
+    android:padding="15dp"/>
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/q_deadline"
         android:textSize = "12sp"
         android:padding="15dp"/>
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:id="@+id/q_time"
+        android:id="@+id/q_difficulty"
         android:textSize = "12sp"
         android:padding="15dp"/>
+
+
+
 
 </LinearLayout>

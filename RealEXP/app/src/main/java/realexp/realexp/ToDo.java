@@ -14,7 +14,7 @@ public class ToDo implements Parcelable {
     private int hourTime;
     private int minuteTime;
     private String suffixTime;
-    private int difficulty; //1 Easy, 2 Medium, 3 Hard
+    private String difficulty; //1 Easy, 2 Medium, 3 Hard
     private int experience;
     private int gold;
     private int priority;
@@ -22,7 +22,7 @@ public class ToDo implements Parcelable {
 
 
     protected ToDo(int id, String title, String description, String type, int month, int date,
-                   int year, int hourTime, int minuteTime, String suffixTime, int difficulty, int experience, int gold,
+                   int year, int hourTime, int minuteTime, String suffixTime, String difficulty, int experience, int gold,
                     int priority)
     {
         ID = id;
@@ -59,7 +59,7 @@ public class ToDo implements Parcelable {
         dest.writeInt(hourTime);
         dest.writeInt(minuteTime);
         dest.writeString(suffixTime);
-        dest.writeInt(difficulty);
+        dest.writeString(difficulty);
         dest.writeInt(experience);
         dest.writeInt(gold);
         dest.writeInt(priority);
@@ -76,7 +76,7 @@ public class ToDo implements Parcelable {
         hourTime = in.readInt();
         minuteTime = in.readInt();
         suffixTime = in.readString();
-        difficulty = in.readInt();
+        difficulty = in.readString();
         experience = in.readInt();
         gold = in.readInt();
         priority = in.readInt();
@@ -102,6 +102,7 @@ public class ToDo implements Parcelable {
     {
         return description;
     }
+    public String get_type() {return type;}
     public String get_date()
     {
         String deadline = month + "/" + date + "/" + year;
@@ -112,6 +113,7 @@ public class ToDo implements Parcelable {
         String time = hourTime + ":" + minuteTime + " " + suffixTime;
         return time;
     }
+    public String get_difficulty() {return difficulty;}
 }
 /*
     //maybe make it so that later on, users can just say a time period and we set the date for them

@@ -42,6 +42,17 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:id="@+id/add_description" />
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/tddifficulty"
+        android:layout_marginTop="20dp"
+        android:layout_marginLeft="5dp"
+        android:textSize="17sp"/>
+    <Spinner
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/spinner" />
 
     <Button
         android:layout_width="wrap_content"
@@ -54,6 +65,7 @@
         android:layout_height="wrap_content"
         android:id="@+id/date_text"
         android:text="@string/displayDate" />
+
     <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"

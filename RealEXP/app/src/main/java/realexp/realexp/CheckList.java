@@ -57,18 +57,23 @@ public class CheckList extends BaseAdapter
             holder = new ViewHolder();
             holder.questTitle = (TextView) convertView.findViewById(R.id.q_title);
             holder.questDescription = (TextView) convertView.findViewById(R.id.q_description);
-            holder.questDate= (TextView) convertView.findViewById(R.id.q_date);
-            holder.questTime = (TextView) convertView.findViewById(R.id.q_time);
+            holder.questType = (TextView) convertView.findViewById(R.id.q_type);
+            holder.questDeadline = (TextView) convertView.findViewById(R.id.q_deadline);
+            holder.questDifficulty = (TextView )convertView.findViewById(R.id.q_difficulty);
             convertView.setTag(holder);
         }
         else
         {
             holder = (ViewHolder) convertView.getTag();
         }
-        holder.questTitle.setText(myList.get(position).get_title());
-        holder.questDescription.setText(myList.get(position).get_description());
-        holder.questDate.setText(myList.get(position).get_date());
-        holder.questTime.setText(myList.get(position).get_time());
+        holder.questTitle.setText("Quest: " + myList.get(position).get_title());
+        holder.questDescription.setText("Description: " + myList.get(position).get_description());
+        holder.questType.setText("Type: " + myList.get(position).get_type());
+        holder.questDeadline.setText("Deadline: " + myList.get(position).get_date() + " at " +
+                myList.get(position).get_time());
+        holder.questDifficulty.setText("Difficulty: " + myList.get(position).get_difficulty());
+        //holder.questDate.setText(myList.get(position).get_date());
+        //holder.questTime.setText(myList.get(position).get_time());
         return convertView;
     }
 
@@ -76,8 +81,9 @@ public class CheckList extends BaseAdapter
     {
         TextView questTitle;
         TextView questDescription;
-        TextView questDate;
-        TextView questTime;
+        TextView questType;
+        TextView questDeadline;
+        TextView questDifficulty;
     }
 
     public boolean isEmpty()

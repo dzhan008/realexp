@@ -5,12 +5,15 @@ import android.os.Bundle;
 import android.support.v4.app.DialogFragment;
 import android.support.v4.app.FragmentActivity;
 import android.view.View;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
-public class createToDo_Activity extends FragmentActivity implements View.OnClickListener {
+public class createToDo_Activity extends FragmentActivity implements View.OnClickListener, AdapterView.OnItemSelectedListener {
     Button bSubmit;
     Button bCancel;
     Button bDate;
@@ -19,6 +22,8 @@ public class createToDo_Activity extends FragmentActivity implements View.OnClic
     EditText tdtitle, tddescription, tdtype;
     TextView tddate, tdtime;
 
+    Spinner spinner;
+    String difficulty;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -40,6 +45,24 @@ public class createToDo_Activity extends FragmentActivity implements View.OnClic
 
         bTime = (Button) findViewById(R.id.button_time);
         bTime.setOnClickListener(this);
+
+        spinner = (Spinner) findViewById(R.id.spinner);
+        ArrayAdapter difficultyAdapter = ArrayAdapter.createFromResource(this, R.array.Difficulty,
+                android.R.layout.simple_spinner_item);
+        spinner.setAdapter(difficultyAdapter);
+        spinner.setOnItemSelectedListener(this);
+    }
+
+    public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l)
+    {
+        TextView diffText = (TextView) view;
+        Toast.makeText(this, "You selected " + diffText.getText(), Toast.LENGTH_SHORT).show();
+        difficulty = String.valueOf(diffText.getText());
+    }
+
+    @Override
+    public void onNothingSelected(AdapterView<?> parent) {
+
     }
 
     public void onClick(View v)
@@ -67,6 +90,7 @@ public class createToDo_Activity extends FragmentActivity implements View.OnClic
                 setResult(RESULT_CANCELED, i);
                 finish();
                 break;
+
         }
     }
 
@@ -141,7 +165,7 @@ public class createToDo_Activity extends FragmentActivity implements View.OnClic
 
         //Create ToDo object to pass back to the calling activity
         ToDo quest = new ToDo(1, Title,Description, Type, month, date, year, hourTime, minuteTime,
-                suffixTime, 3, 100, 200, 1);
+                suffixTime, difficulty, 100, 200, 1);
 
         //Create an intent and add the object to the intent
         Intent intent = new Intent(this, CheckList_Activity.class);
