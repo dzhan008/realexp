@@ -17,6 +17,7 @@ import android.view.SurfaceView;
 import android.widget.TextView;
 
 import java.io.IOException;
+import java.util.List;
 
 
 public class Heartrate extends AppCompatActivity implements SensorEventListener {
@@ -25,6 +26,11 @@ public class Heartrate extends AppCompatActivity implements SensorEventListener 
     Sensor sensorHeartrate;
     Camera camera;
     SurfaceView sView;
+
+    public enum COLOR {
+        GREEN, RED
+    }
+    COLOR color = COLOR.RED;
 
     // Sensor
     @Override
@@ -79,7 +85,7 @@ public class Heartrate extends AppCompatActivity implements SensorEventListener 
     @Override
     protected void onResume() {
         super.onResume();
-        //camera.open();
+        camera = Camera.open();
     }
 
     @Override
@@ -91,6 +97,7 @@ public class Heartrate extends AppCompatActivity implements SensorEventListener 
     @Override
     protected void onDestroy() {
         super.onDestroy();
+        camera.stopPreview();
         camera.release();
     }
 
@@ -103,37 +110,64 @@ public class Heartrate extends AppCompatActivity implements SensorEventListener 
     public void getCamera() {
         camera = camera.open();
         SurfaceHolder sHolder = sView.getHolder();
-        sHolder.addCallback(new SurfaceHolder.Callback() {
-            @Override
-            public void surfaceCreated(SurfaceHolder holder) {
-                try {
-                    camera.setPreviewDisplay(holder);
-                    camera.startPreview();
-                } catch (IOException e) {
-                    e.printStackTrace();
-                    Log.e("Camera", "Surface is bad");
-                }
-            }
-            @Override
-            public void surfaceChanged(SurfaceHolder holder, int format, int width, int height) {
-            }
-            @Override
-            public void surfaceDestroyed(SurfaceHolder holder) {
-                camera.stopPreview();
-                camera.release();
-            }
-        });
-
-
-
-
-
-
-        // camera.unlock();
+        sHolder.addCallback(sHolderCallback);
+        sHolder.setType(SurfaceHolder.SURFACE_TYPE_PUSH_BUFFERS);
 
     }
 
-    @Override
+    private Camera.PreviewCallback previewCallback = new Camera.PreviewCallback() {
+
+        @Override
+        public void onPreviewFrame(byte[] data, Camera camera) {
+            if (data == null) return;
+            Camera.Size size = camera.getParameters().getPreviewSize();
+            if (size == null) return;
+
+
+        }
+    };
+
+    private SurfaceHolder.Callback sHolderCallback = new SurfaceHolder.Callback() {
+        @Override
+        public void surfaceCreated(SurfaceHolder holder) {
+            try {
+                camera.setDisplayOrientation(90);
+                camera.setPreviewDisplay(holder);
+                camera.setPreviewCallback(previewCallback);
+                camera.startPreview();
+            } catch (IOException e) {
+                e.printStackTrace();
+                Log.e("SurfaceHolderCallback", "Error in setPreview");
+            }
+        }
+        @Override
+        public void surfaceChanged(SurfaceHolder holder, int format, int width, int height) {
+            Camera.Parameters parameters = camera.getParameters();
+            List<Camera.Size> previewSizes = parameters.getSupportedPreviewSizes();
+            Camera.Size newSize = parameters.getPreviewSize();
+            for (Camera.Size size : previewSizes) {
+                if (size.width <= width && size.height < height) {
+                    newSize = size;
+                }
+            }
+            //parameters.setFlashMode(Camera.Parameters.FLASH_MODE_TORCH);
+            //parameters.setPreviewFormat(format);
+            parameters.setPreviewSize(newSize.width, newSize.height);
+
+            try {
+                camera.setParameters(parameters);
+            } catch (Exception e) {
+                e.printStackTrace();
+                Log.e("Camera Paramters", "Bad parameters");
+            }
+            camera.startPreview();
+        }
+        @Override
+        public void surfaceDestroyed(SurfaceHolder holder) {
+            camera.stopPreview();
+        }
+    };
+
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.menu_heartrate, menu);
@@ -154,4 +188,5 @@ public class Heartrate extends AppCompatActivity implements SensorEventListener 
 
         return super.onOptionsItemSelected(item);
     }
+
 }
