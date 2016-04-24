@@ -110,6 +110,7 @@ public class ToDo implements Parcelable {
     }
     public String get_time()
     {
+        if (suffixTime.matches("")) return "";
         String time = hourTime + ":" + minuteTime + " " + suffixTime;
         if (suffixTime == "AM/PM") return " ";
         return time;

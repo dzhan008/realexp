@@ -13,6 +13,9 @@
     <string name="selectTime">Select Time</string>
     <string name="displayDate">Month Day Year</string>
     <string name="displayTime">00:00 AM/PM</string>
+    <string name="edit_button_text">Edit</string>
+    <string name="delete_button_text">Delete</string>
+    <string name="complete_button_text">Complete</string>
 
     <string-array name="Difficulty">
         <item>Pick a Difficulty</item>

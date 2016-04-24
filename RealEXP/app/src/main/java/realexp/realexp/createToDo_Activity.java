@@ -66,7 +66,6 @@ public class createToDo_Activity extends FragmentActivity implements View.OnClic
     public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l)
     {
         TextView spinnerText = (TextView) view;
-        Toast.makeText(this, "You selected " + spinnerText.getText(), Toast.LENGTH_SHORT).show();
         switch (adapterView.getId())
         {
             case R.id.spinnerType:
@@ -120,8 +119,8 @@ public class createToDo_Activity extends FragmentActivity implements View.OnClic
         EditText titleEditText = (EditText) findViewById(R.id.add_title);
         String questTitle = titleEditText.getText().toString();
         if (questTitle.matches("")) {
-            Toast.makeText(this, "You did not enter a quest title", Toast.LENGTH_SHORT).show();
-            return true;
+        Toast.makeText(this, "You did not enter a quest title", Toast.LENGTH_SHORT).show();
+        return true;
         }
         TextView dateTextView = (TextView) findViewById(R.id.date_text);
         String dateSelect = dateTextView.getText().toString();
@@ -129,12 +128,12 @@ public class createToDo_Activity extends FragmentActivity implements View.OnClic
             Toast.makeText(this, "You did not enter a deadline date", Toast.LENGTH_SHORT).show();
             return true;
         }
-        if (type == "Pick a Type")
+        if (type.matches("Pick a Type"))
         {
             Toast.makeText(this, "You did not pick a type", Toast.LENGTH_SHORT).show();
             return true;
         }
-        if (difficulty == "Pick a Difficulty")
+        if (difficulty.matches("Pick a Difficulty"))
         {
             Toast.makeText(this, "You did not pick a difficulty", Toast.LENGTH_SHORT).show();
             return true;
@@ -145,6 +144,7 @@ public class createToDo_Activity extends FragmentActivity implements View.OnClic
     private void createQuest()
     {
         /*
+        Quest data types
         private int ID;
         private String title;
         private String description;
@@ -177,14 +177,19 @@ public class createToDo_Activity extends FragmentActivity implements View.OnClic
         Integer year  = Integer.valueOf(splitStringArray[2]);
 
         //Get deadline time info
+        Integer hourTime = 0;
+        Integer minuteTime = 0;
+        String suffixTime = "";
         String Time = tdtime.getText().toString();
-        String[] splitSuffix = Time.split(" ");
-        String suffixTime = String.valueOf(splitSuffix[1]);
+        if (!(Time.matches("00:00 AM/PM"))) {
+            String[] splitSuffix = Time.split(" ");
+            suffixTime = String.valueOf(splitSuffix[1]);
 
-        String numTime = String.valueOf(splitSuffix[0]);
-        String [] splitHourandTime = numTime.split(":");
-        Integer hourTime  = Integer.parseInt(splitHourandTime[0]);
-        Integer minuteTime  = Integer.parseInt(splitHourandTime[1]);
+            String numTime = String.valueOf(splitSuffix[0]);
+            String[] splitHourandTime = numTime.split(":");
+            hourTime = Integer.parseInt(splitHourandTime[0]);
+            minuteTime = Integer.parseInt(splitHourandTime[1]);
+        }
 
 
 
