@@ -56,7 +56,8 @@
 
         <activity
             android:name=".Heartrate"
-            android:label="@string/title_activity_heartrate" />
+            android:label="@string/title_activity_heartrate"
+            android:screenOrientation="portrait"/>
 
         <meta-data
             android:name="android.support.PARENT_ACTIVITY"

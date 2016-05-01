@@ -64,7 +64,6 @@ public class Pedometer extends AppCompatActivity implements SensorEventListener 
             }
             timeStep1 = 0;
             timeStep2 = 0;
-            // float minmile = 5280 / speed;
         }
 
         float distance = steps * strideLength / 5280; // in miles
@@ -80,13 +79,22 @@ public class Pedometer extends AppCompatActivity implements SensorEventListener 
         txtSteps.setText(Integer.toString((int) steps));
         txtDistance.setText(new DecimalFormat("##.##").format(distance)
             + " Miles");
+
+        // Variable speed Calorie burn rate
         /*
         17 min/mile 1.92 Cal/hr * lb
         15 min/mile 2.16 Cal/hr * lb
         13 min/mile 2.40 Cal/hr * lb
         */
-        // TODO: Variable speed implementation
-        txtCalories.setText(Float.toString((int) (2.16f * hours * weight))
+        // Y = Slope * x + b
+        // slope = -.12
+        // 2.4 = -.12 * 13 + b
+        // b = 3.96
+        float CalorieConstant = (float)(((5280 / speed) * -.12) + 3.96);
+
+        Log.i("Calorie Constant", String.valueOf(CalorieConstant));
+
+        txtCalories.setText(Float.toString((int)(CalorieConstant * hours * weight))
                 + " Calories burned");
 
         TextView txtSpeed = (TextView) findViewById(R.id.txtSpeed);
