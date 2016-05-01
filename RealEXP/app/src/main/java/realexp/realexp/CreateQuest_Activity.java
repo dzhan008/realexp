@@ -13,7 +13,7 @@ import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
-public class createToDo_Activity extends FragmentActivity implements View.OnClickListener, AdapterView.OnItemSelectedListener {
+public class CreateQuest_Activity extends FragmentActivity implements View.OnClickListener, AdapterView.OnItemSelectedListener {
     Button bSubmit;
     Button bCancel;
     Button bDate;
@@ -87,12 +87,12 @@ public class createToDo_Activity extends FragmentActivity implements View.OnClic
         switch(v.getId())
         {
             case R.id.button_date:
-                DialogFragment myDatePickerFragment = new DatePickerFragment();
+                DialogFragment myDatePickerFragment = new Picker_DateFragment();
                 myDatePickerFragment.show(getSupportFragmentManager(), "datePicker");
                 break;
 
             case R.id.button_time:
-                DialogFragment myTimePickerFragment = new TimePickerFragment();
+                DialogFragment myTimePickerFragment = new Picker_TimeFragment();
                 myTimePickerFragment.show(getSupportFragmentManager(), "timePicker");
                 break;
 
@@ -103,7 +103,7 @@ public class createToDo_Activity extends FragmentActivity implements View.OnClic
                 }
                 break;
             case R.id.button_cancel:
-                Intent i = new Intent(this, CheckList_Activity.class);
+                Intent i = new Intent(this, QuestDisplay_Activity.class);
                 setResult(RESULT_CANCELED, i);
                 finish();
                 break;
@@ -144,24 +144,25 @@ public class createToDo_Activity extends FragmentActivity implements View.OnClic
     private void createQuest()
     {
         /*
-        Quest data types
+        Quest data types for reference
         private int ID;
         private String title;
         private String description;
+        private String type;
         private int month;
         private int date;
         private int year;
         private int hourTime;
         private int minuteTime;
-        private String suffxiTime;
-        private int difficulty; //1 Easy, 2 Medium, 3 Hard
+        private String suffixTime;
+        private String difficulty; //1 Easy, 2 Medium, 3 Hard
         private int experience;
         private int gold;
         private int priority;
          */
 
 
-        //Store information to create ToDo object
+        //Store information to create QuestRecyclerInfo object
         String Title = tdtitle.getText().toString();
         String Description = tddescription.getText().toString();
 
@@ -191,18 +192,15 @@ public class createToDo_Activity extends FragmentActivity implements View.OnClic
             minuteTime = Integer.parseInt(splitHourandTime[1]);
         }
 
-
-
-        //Create ToDo object to pass back to the calling activity
-        ToDo quest = new ToDo(1, Title,Description, type, month, date, year, hourTime, minuteTime,
+        //Create QuestRecyclerInfo object to pass back to the calling activity
+        QuestRecyclerInfo quest = new QuestRecyclerInfo(1, Title,Description, type, month, date, year, hourTime, minuteTime,
                 suffixTime, difficulty, 100, 200, 1);
 
         //Create an intent and add the object to the intent
-        Intent intent = new Intent(this, CheckList_Activity.class);
+        Intent intent = new Intent(this, QuestDisplay_Activity.class);
         intent.putExtra("quest", quest);
         setResult(RESULT_OK, intent);
         finish();
-
     }
 }
 

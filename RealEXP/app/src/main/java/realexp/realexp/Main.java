@@ -50,7 +50,7 @@ public class Main extends AppCompatActivity {
         else if (id == R.id.goToCheckList)
         {
             finish();
-            startActivity(new Intent(this, CheckList_Activity.class));
+            startActivity(new Intent(this, QuestDisplay_Activity.class));
             return true;
         }
 

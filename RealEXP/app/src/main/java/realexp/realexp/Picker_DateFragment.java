@@ -9,7 +9,7 @@ import android.widget.TextView;
 
 import java.util.Calendar;
 
-public class DatePickerFragment extends DialogFragment implements DatePickerDialog.OnDateSetListener{
+public class Picker_DateFragment extends DialogFragment implements DatePickerDialog.OnDateSetListener{
 
     String monthsArray[] = {"Jan", "Feb", "Mar", "Apr", "May", "Jun", "July", "Aug", "Sept"
             , "Oct", "Nov", "Dec"};

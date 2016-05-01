@@ -12,7 +12,7 @@ import java.util.Calendar;
 /**
  * Created by Penquynh on 1/24/2016.
  */
-public class TimePickerFragment extends DialogFragment implements TimePickerDialog.OnTimeSetListener{
+public class Picker_TimeFragment extends DialogFragment implements TimePickerDialog.OnTimeSetListener{
 
     public Dialog onCreateDialog(Bundle savedInstanceState) {
         Calendar calendar = Calendar.getInstance();
