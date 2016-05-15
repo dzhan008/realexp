@@ -16,6 +16,7 @@
     <string name="edit_button_text">Edit</string>
     <string name="delete_button_text">Delete</string>
     <string name="complete_button_text">Complete</string>
+    <string name="view_button_text">View</string>
 
     <string-array name="Difficulty">
         <item>Pick a Difficulty</item>

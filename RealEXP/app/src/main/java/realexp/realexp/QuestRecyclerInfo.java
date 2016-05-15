@@ -94,16 +94,20 @@ public class QuestRecyclerInfo implements Parcelable {
         }
     };
 
-    public String get_title()
-    {
-        return title;
-    }
+    public int get_id(){return ID;}
+    public String get_title() { return title;}
     public String get_description()
     {
         return description;
     }
     public String get_type() {return type;}
-    public String get_date()
+    public int get_month(){return month;}
+    public int get_date(){return date;}
+    public int get_year(){return year;}
+    public int get_hourTime(){return hourTime;}
+    public int get_minuteTime(){return minuteTime;}
+    public String get_suffixTime(){return suffixTime;}
+    public String get_deadline()
     {
         String deadline = month + "/" + date + "/" + year;
         return deadline;
@@ -116,4 +120,24 @@ public class QuestRecyclerInfo implements Parcelable {
         return time;
     }
     public String get_difficulty() {return difficulty;}
+    public int get_exp(){return experience;}
+    public int get_gold(){return gold;}
+    public int get_priority(){return priority;}
+    public void setEverything(QuestRecyclerInfo temp)
+    {
+        ID = temp.get_id();
+        title = temp.get_title();
+        description = temp.get_description();
+        type = temp.get_type();
+        month = temp.get_month();
+        date = temp.get_date();
+        year = temp.get_year();
+        hourTime = temp.get_hourTime();
+        minuteTime = temp.get_minuteTime();
+        suffixTime = temp.get_suffixTime();
+        difficulty = temp.get_difficulty();
+        experience = temp.get_exp();
+        gold = temp.get_gold();
+        priority = temp.get_priority();
+    }
 }

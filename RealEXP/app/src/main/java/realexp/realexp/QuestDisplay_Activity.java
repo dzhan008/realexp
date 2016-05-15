@@ -62,7 +62,7 @@ public class QuestDisplay_Activity extends ActionBarActivity implements View.OnC
     /*Used only when setResult is used*/
     public void onActivityResult(int requestCode, int resultCode, Intent data)
     {
-        if (requestCode == 10) //Request code is 10 for my case
+        if (requestCode == 10) //Request code is 10 from CreateQuest_Activity
         {
             //If the intent went through
             if (resultCode == RESULT_OK) //Did the intent go through?
@@ -70,7 +70,29 @@ public class QuestDisplay_Activity extends ActionBarActivity implements View.OnC
                 //Get information from the createToDo Activity and store in a QuestRecyclerInfo
                 QuestRecyclerInfo quest = data.getExtras().getParcelable("quest");
                 //Add new quest to the data list
-                adapter.addToDo(quest);
+                adapter.addQuest(quest);
+            }
+            //If user did not create a new QuestRecyclerInfo
+            if (resultCode == RESULT_CANCELED)
+            {
+                //write code if there is no result
+            }
+        }
+        else if (requestCode == 20) //Request code is 20 from QuestViewInfo_Activity
+        {
+            //If the intent went through
+            if (resultCode == RESULT_OK) //Did the intent go through?
+            {
+                int position = data.getExtras().getInt("position");
+                if (data.getExtras().getString("status") == "edit") {
+                    QuestRecyclerInfo quest = data.getExtras().getParcelable("quest");
+                    adapter.updateQuest(quest, position);
+                }
+                else if (data.getExtras().getString("status") == "delete")
+                {
+                    adapter.deleteQuest(position);
+                }
+
             }
             //If user did not create a new QuestRecyclerInfo
             if (resultCode == RESULT_CANCELED)
@@ -80,7 +102,6 @@ public class QuestDisplay_Activity extends ActionBarActivity implements View.OnC
         }
     }
 
-    //protected void onRestart(Bundle savedInstanceState)
     public void onClick(View v)
     {
         switch(v.getId())
