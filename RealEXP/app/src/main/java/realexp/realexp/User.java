@@ -19,6 +19,7 @@ import java.io.Serializable;
  */
 public class User extends Application implements Parcelable {
 
+    private String ID; //Player's ID for Firebase
     private int level = 1;
     private int curr_exp = 0;
     private int max_exp = 100;
@@ -79,6 +80,11 @@ public class User extends Application implements Parcelable {
 
     };
 
+    /**User Functions**/
+
+    public String getID(){return this.ID;}
+
+    void setID(String ID) {this.ID = ID;}
 
     /**Exp Functions**/
     public int get_max_exp()
