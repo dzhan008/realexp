@@ -15,7 +15,7 @@ import java.io.Serializable;
 import java.io.Serializable;
 
 /**
- * Created by Skillinazn on 12/24/2015.
+ *
  */
 public class User extends Application implements Parcelable {
 
