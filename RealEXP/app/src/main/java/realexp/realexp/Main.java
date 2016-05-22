@@ -96,6 +96,11 @@ public class Main extends AppCompatActivity {
         startActivity(i);
     }
 
+    public void btnRunToMe_Click (View v)
+    {
+        Intent i = new Intent(this, Run_To_Me.class);
+        startActivity(i);
+    }
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) //USED ONLY setResult is used
     {

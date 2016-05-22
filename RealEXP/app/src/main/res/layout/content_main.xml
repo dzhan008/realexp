@@ -88,4 +88,13 @@
         android:id="@+id/buttonfog"
         android:layout_alignParentStart="true"
         android:onClick="btnfog_Click" />
+
+    <Button
+        style="?android:attr/buttonStyleSmall"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Run to Me"
+        android:id="@+id/btn_runtome"
+        android:layout_alighParentStart = "true"
+        android:OnClick="btnRunToMe_Click" />
 </LinearLayout>
