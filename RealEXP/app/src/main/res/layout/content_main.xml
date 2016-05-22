@@ -1,9 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:orientation="vertical"
     android:paddingBottom="@dimen/activity_vertical_margin"
     android:paddingLeft="@dimen/activity_horizontal_margin"
     android:paddingRight="@dimen/activity_horizontal_margin"
@@ -12,21 +13,79 @@
     tools:context="realexp.realexp.Main"
     tools:showIn="@layout/activity_main">
 
-    <Button
+    <TextView
+        android:id="@+id/user_name"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Traveling Map"
-        android:id="@+id/g_map"
-        android:onClick="g_map_Travel"
-        android:layout_alignParentTop="true"
-        android:layout_alignParentStart="true" />
-    <Button
+        android:text="Username: Admin" />
+    <TextView
+        android:id="@+id/user_level"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Fitness Map"
-        android:id="@id/g_map_Fitness"
-        android:onClick="g_map_Fitness"
-        android:layout_alignParentStart="true"
-        android:layout_marginTop="59dp" />
+        android:text="Level: " />
 
-</RelativeLayout>
+    <LinearLayout
+        android:id="@+id/buttons"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:weightSum="1">
+
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="1 Exp"
+            android:onClick="Gain1Exp"/>
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="50 Exp"
+            android:onClick="Gain50Exp"/>
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Level Up!"
+            android:onClick="LevelUp"/>
+
+    </LinearLayout>
+
+    <TextView
+        android:id="@+id/user_exp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Experience: " />
+
+    <ProgressBar
+        android:id="@+id/exp_bar"
+        android:layout_width="300dp"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom"
+        android:maxWidth="50dp"
+        style="@android:style/Widget.ProgressBar.Horizontal"
+        android:layout_marginRight="5dp"/>
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Pedometer"
+        android:id="@+id/btnLocationA"
+        android:layout_below="@+id/txtCal"
+        android:layout_alignParentStart="true"
+        android:onClick="btnPedometer_Click" />
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Heart Rate"
+        android:id="@+id/button"
+        android:layout_below="@+id/btnLocationA"
+        android:layout_alignParentStart="true"
+        android:onClick="btnHeartrate_Click" />
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Fog of War Test"
+        android:id="@+id/buttonfog"
+        android:layout_alignParentStart="true"
+        android:onClick="btnfog_Click" />
+</LinearLayout>
