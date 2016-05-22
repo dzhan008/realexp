@@ -94,6 +94,7 @@ public class CreateQuest_Activity extends FragmentActivity implements View.OnCli
             case R.id.button_time:
                 DialogFragment myTimePickerFragment = new Picker_TimeFragment();
                 myTimePickerFragment.show(getSupportFragmentManager(), "timePicker");
+
                 break;
 
             case R.id.button_submit:
@@ -190,6 +191,7 @@ public class CreateQuest_Activity extends FragmentActivity implements View.OnCli
             String[] splitHourandTime = numTime.split(":");
             hourTime = Integer.parseInt(splitHourandTime[0]);
             minuteTime = Integer.parseInt(splitHourandTime[1]);
+            //doesn't do 00 or 05 or anything with a 0 in front of it
         }
 
         //Create QuestRecyclerInfo object to pass back to the calling activity

@@ -34,11 +34,42 @@ public class EditQuest_Activity extends FragmentActivity implements View.OnClick
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.fragment_createtodo);
-
         selected_quest = getIntent().getExtras().getParcelable("quest");
+        String difficultyArray[] = {"Easy", "Medium", "Hard"};
+        String typeArray[] = {"Math", "Cooking", "English", "Sports", "Exercise", "Club", "Science",
+        "Social Studies", "Event", "Other"};
+        int diff_pos = 0;
+        int type_pos = 0;
+        for (int i = 0; i < difficultyArray.length; i++)
+        {
+            if(selected_quest.get_difficulty().matches(difficultyArray[i])) {
+                diff_pos = i + 1;
+                break;
+            }
+        }
 
+
+        for (int i = 0; i < typeArray.length; i++)
+        {
+            if(selected_quest.get_type().matches(typeArray[i])){
+                type_pos = i + 1;
+                break;
+            }
+        }
+        Toast.makeText(this, "Diff position: " + diff_pos + " Type position: " + type_pos, Toast.LENGTH_SHORT).show();
         tdtitle = (EditText) findViewById(R.id.add_title);
+        tdtitle.setText(selected_quest.get_title(), TextView.BufferType.EDITABLE);
+
         tddescription = (EditText) findViewById(R.id.add_description);
+        tddescription.setText(selected_quest.get_description(), TextView.BufferType.EDITABLE);
+
+        TextView quest_date = (TextView) findViewById(R.id.date_text);
+        quest_date.setText(selected_quest.get_deadline());
+
+        TextView quest_time = (TextView) findViewById(R.id.time_text);
+        if (selected_quest.get_time().matches("")) quest_time.setText("00:00 AM/PM");
+        else quest_time.setText(selected_quest.get_time());
+
 
         bSubmit = (Button) findViewById(R.id.button_submit);
         bSubmit.setOnClickListener(this);
@@ -56,12 +87,14 @@ public class EditQuest_Activity extends FragmentActivity implements View.OnClick
         ArrayAdapter difficultyAdapter = ArrayAdapter.createFromResource(this, R.array.Difficulty,
                 android.R.layout.simple_spinner_item);
         spinnerDifficulty.setAdapter(difficultyAdapter);
+        spinnerDifficulty.setSelection(diff_pos);
         spinnerDifficulty.setOnItemSelectedListener(this);
 
         spinnerType = (Spinner) findViewById(R.id.spinnerType);
         ArrayAdapter typeAdapter = ArrayAdapter.createFromResource(this, R.array.Type,
                 android.R.layout.simple_spinner_item);
         spinnerType.setAdapter(typeAdapter);
+        spinnerType.setSelection(type_pos);
         spinnerType.setOnItemSelectedListener(this);
 
     }

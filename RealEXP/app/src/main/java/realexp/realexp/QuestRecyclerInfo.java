@@ -115,7 +115,9 @@ public class QuestRecyclerInfo implements Parcelable {
     public String get_time()
     {
         if (suffixTime.matches("")) return "";
-        String time = hourTime + ":" + minuteTime + " " + suffixTime;
+        String time;
+        if (minuteTime < 10) time = hourTime + ":0" + minuteTime + " " + suffixTime;
+        else time = hourTime + ":" + minuteTime + " " + suffixTime;
         if (suffixTime == "AM/PM") return " ";
         return time;
     }

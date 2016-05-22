@@ -5,11 +5,14 @@ import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.TextView;
+import android.widget.Toast;
 
 public class QuestViewInfo_Activity extends FragmentActivity implements View.OnClickListener {
     Button deleteButt;
     Button editButt;
+    ImageButton backButt;
 
     //vq stands for view quest
     TextView questTitle;
@@ -20,6 +23,28 @@ public class QuestViewInfo_Activity extends FragmentActivity implements View.OnC
     QuestRecyclerInfo selected_quest;
     int position;
     String status; //true if the user editted the information
+
+    private void setViewInfo(){
+        questTitle = (TextView) findViewById(R.id.vq_title);
+        questDescription = (TextView) findViewById(R.id.vq_description);
+        questType = (TextView) findViewById(R.id.vq_type);
+        questDeadline = (TextView) findViewById(R.id.vq_deadline);
+        questDifficulty = (TextView)findViewById(R.id.vq_difficulty);
+
+        questTitle.setText("Quest: " + selected_quest.get_title());
+        if (!(selected_quest.get_description().matches(""))){
+            questDescription.setText("Description: " + selected_quest.get_description());
+        }
+        questType.setText("Type: " + selected_quest.get_type());
+        if (selected_quest.get_time().matches("")) {
+            questDeadline.setText("Deadline: " + selected_quest.get_deadline());
+        }
+        else {
+            questDeadline.setText("Deadline: " + selected_quest.get_deadline() + " at " +
+                    selected_quest.get_time());
+        }
+        questDifficulty.setText("Difficulty: " + selected_quest.get_difficulty());
+    }
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -28,27 +53,16 @@ public class QuestViewInfo_Activity extends FragmentActivity implements View.OnC
         position = getIntent().getExtras().getInt("position");
         status = "unchanged";
 
-        questTitle = (TextView) findViewById(R.id.vq_title);
-        questDescription = (TextView) findViewById(R.id.vq_description);
-        questType = (TextView) findViewById(R.id.vq_type);
-        questDeadline = (TextView) findViewById(R.id.vq_deadline);
-        questDifficulty = (TextView)findViewById(R.id.vq_difficulty);
+        setViewInfo();
 
-       questTitle.setText("Quest: " + selected_quest.get_title());
-        if (!(selected_quest.get_description().matches(""))){
-           questDescription.setText("Description: " + selected_quest.get_description());
-        }
-       questType.setText("Type: " + selected_quest.get_type());
-        if (selected_quest.get_time().matches("")) {
-            questDeadline.setText("Deadline: " + selected_quest.get_date());
-        }
-        else {
-            questDeadline.setText("Deadline: " + selected_quest.get_date() + " at " +
-                    selected_quest.get_time());
-        }
-        questDeadline.setText("Deadline: " + selected_quest.get_date());
-        questDifficulty.setText("Difficulty: " + selected_quest.get_difficulty());
+        editButt = (Button) findViewById(R.id.edit_btn);
+        editButt.setOnClickListener(this);
 
+        deleteButt = (Button) findViewById(R.id.delete_btn);
+        deleteButt.setOnClickListener(this);
+
+        backButt = (ImageButton) findViewById(R.id.back_btn);
+        backButt.setOnClickListener(this);
 
     }
     public void onActivityResult(int requestCode, int resultCode, Intent data)
@@ -58,7 +72,11 @@ public class QuestViewInfo_Activity extends FragmentActivity implements View.OnC
             //If the intent went through
             if (resultCode == RESULT_OK) //Did the intent go through?
             {
-                selected_quest = data.getExtras().getParcelable("quest");
+                //Get information from the createToDo Activity and store in a QuestRecyclerInfo
+                QuestRecyclerInfo quest = data.getExtras().getParcelable("quest");
+                //Add new quest to the data list
+                selected_quest.setEverything(quest);
+                setViewInfo();
             }
             //If user did not create a new QuestRecyclerInfo
             if (resultCode == RESULT_CANCELED)
@@ -86,13 +104,15 @@ public class QuestViewInfo_Activity extends FragmentActivity implements View.OnC
     }
     private void pressedEdit(){
         status = "edit";
-        Intent i = new Intent(this, CreateQuest_Activity.class);
+        Intent i = new Intent(this, EditQuest_Activity.class);
+        i.putExtra("quest", selected_quest);
         startActivityForResult(i, 10);
     }
     @Override
     public void onClick(View v) {
         switch(v.getId()){
             case R.id.edit_btn:
+                Toast.makeText(this, "Edit clicked. ", Toast.LENGTH_SHORT).show();
                 pressedEdit();
                 break;
             case R.id.delete_btn:

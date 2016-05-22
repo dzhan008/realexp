@@ -7,6 +7,7 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.ImageButton;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 
@@ -62,6 +63,7 @@ public class QuestDisplay_Activity extends ActionBarActivity implements View.OnC
     /*Used only when setResult is used*/
     public void onActivityResult(int requestCode, int resultCode, Intent data)
     {
+        //data = getIntent();
         if (requestCode == 10) //Request code is 10 from CreateQuest_Activity
         {
             //If the intent went through
@@ -80,24 +82,29 @@ public class QuestDisplay_Activity extends ActionBarActivity implements View.OnC
         }
         else if (requestCode == 20) //Request code is 20 from QuestViewInfo_Activity
         {
+            Bundle extras = data.getExtras();
             //If the intent went through
+            if (extras == null) {
+                Toast.makeText(this, "BUNDLE IS EMPTY", Toast.LENGTH_SHORT).show();
+            }
             if (resultCode == RESULT_OK) //Did the intent go through?
             {
-                int position = data.getExtras().getInt("position");
-                if (data.getExtras().getString("status") == "edit") {
+                int position = extras.getInt("position");
+                if (extras.getString("update").matches("edit")) {
                     QuestRecyclerInfo quest = data.getExtras().getParcelable("quest");
                     adapter.updateQuest(quest, position);
                 }
-                else if (data.getExtras().getString("status") == "delete")
+                else if (extras.getString("update").matches("delete"))
                 {
                     adapter.deleteQuest(position);
                 }
 
             }
             //If user did not create a new QuestRecyclerInfo
-            if (resultCode == RESULT_CANCELED)
+            else if (resultCode == RESULT_CANCELED)
             {
                 //write code if there is no result
+                Toast.makeText(this, "Result Canceled. ", Toast.LENGTH_SHORT).show();
             }
         }
     }

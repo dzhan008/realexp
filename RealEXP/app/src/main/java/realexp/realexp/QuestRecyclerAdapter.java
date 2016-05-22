@@ -30,10 +30,15 @@ public class QuestRecyclerAdapter extends RecyclerView.Adapter<QuestRecyclerAdap
     public void addQuest(QuestRecyclerInfo quest)
     {
         data.add(quest);
+        notifyDataSetChanged();
     }
-    public void deleteQuest(int position){data.remove(position);}
+    public void deleteQuest(int position){
+        data.remove(position);
+        notifyDataSetChanged();
+    }
     public void updateQuest(QuestRecyclerInfo quest, int position){
         data.get(position).setEverything(quest);
+        notifyDataSetChanged();
     }
 
 
@@ -55,7 +60,6 @@ public class QuestRecyclerAdapter extends RecyclerView.Adapter<QuestRecyclerAdap
             }
 
             public void viewButtonClick(View caller, int position){
-                Toast.makeText(context, "View coming soon near you! ", Toast.LENGTH_SHORT).show();
                 Intent i = new Intent(context, QuestViewInfo_Activity.class);
                 i.putExtra("quest", data.get(position));
                 i.putExtra("position", position);
