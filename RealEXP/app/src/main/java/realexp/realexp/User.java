@@ -13,6 +13,8 @@ import android.widget.Toast;
 import java.io.Serializable;
 
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Created by Skillinazn on 12/24/2015.
@@ -22,9 +24,14 @@ public class User extends Application implements Parcelable {
     private int level = 1;
     private int curr_exp = 0;
     private int max_exp = 100;
+
+    // Pedometer Class
     private float steps = 0;
     private float iSteps = -1;
-    private float speed;
+    private float avgSpeed;
+    private long numSpeed;
+    private int calories;
+    //
 
     //static Context context = getApplicationContext();
 
@@ -35,7 +42,9 @@ public class User extends Application implements Parcelable {
         max_exp = 100;
         steps = 0;
         iSteps = -1;
-        speed = 0;
+        avgSpeed = 0;
+        numSpeed = 0;
+        calories = 0;
     }
 
     public User(Parcel p)
@@ -45,7 +54,9 @@ public class User extends Application implements Parcelable {
         max_exp = p.readInt();
         steps = p.readFloat();
         iSteps = p.readFloat();
-        speed = p.readFloat();
+        avgSpeed = p.readFloat();
+        numSpeed = p.readLong();
+        calories = p.readInt();
     }
 
     public int describeContents()
@@ -60,7 +71,9 @@ public class User extends Application implements Parcelable {
         dest.writeInt(max_exp);
         dest.writeFloat(steps);
         dest.writeFloat(iSteps);
-        dest.writeFloat(speed);
+        dest.writeFloat(avgSpeed);
+        dest.writeLong(numSpeed);
+        dest.writeInt(calories);
     }
 
     public static final Parcelable.Creator<User> CREATOR = new  Parcelable.Creator<User>()
@@ -135,7 +148,7 @@ public class User extends Application implements Parcelable {
         message.show();
     }
 
-    /**Step Functions**/
+    /**Pedometer Functions**/
     void set_steps (float s) {
         steps = s;
     }
@@ -151,12 +164,30 @@ public class User extends Application implements Parcelable {
         return iSteps;
     }
 
-    void set_speed (float s) {
-        speed = s;
+    void set_avgSpeed (float s) {
+        avgSpeed = s;
     }
 
-    float get_speed () {
-        return speed;
+    float get_avgSpeed () {
+        return avgSpeed;
     }
+
+    void set_numSpeed (long s) {
+        numSpeed = s;
+    }
+
+    long get_numSpeed () {
+        return numSpeed;
+    }
+
+
+    void set_calories(int c) {
+        calories = c;
+    }
+
+    int get_calories() {
+        return calories;
+    }
+
 
 }
